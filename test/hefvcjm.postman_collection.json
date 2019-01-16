@@ -1,0 +1,146 @@
+{
+    "info": {
+        "_postman_id": "d29e060e-e4d9-4515-b431-2a217d083276",
+        "name": "hefvcjm",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "login",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "id": "01465841-87be-4b61-8817-39519ad7a4f5",
+                        "type": "text/javascript",
+                        "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "1522344b-ea8a-44b6-8445-dfdf1c6abaf7",
+                        "type": "text/javascript",
+                        "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "json/application",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{'username': 'administrator', 'password': 'xA123456'}"
+                },
+                "url": {
+                    "raw": "http://39.104.25.189:8188/matdata/v1/user/login?username=administrator&password=xA123456",
+                    "host": [
+                        "39.104.25.189:8188"
+                    ],
+                    "path": [
+                        "matdata",
+                        "v1",
+                        "user",
+                        "login"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "test",
+            "item": [
+                {
+                    "name": "login",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "01465841-87be-4b61-8817-39519ad7a4f5",
+                                "type": "text/javascript",
+                                "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "1522344b-ea8a-44b6-8445-dfdf1c6abaf7",
+                                "type": "text/javascript",
+                                "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "json/application",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{'username': 'administrator', 'password': 'xA123456'}"
+                        },
+                        "url": {
+                            "raw": "http://39.104.25.189:8188/matdata/v1/user/login?username=administrator&password=xA123456",
+                            "host": [
+                                "39.104.25.189:8188"
+                            ],
+                            "path": [
+                                "matdata",
+                                "v1",
+                                "user",
+                                "login"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "id": "ef082a3e-96bb-4c14-b260-d5e9cf806777",
+                        "type": "text/javascript",
+                        "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "e2a4ff95-f0bc-4327-8b4a-7aab171fcb0e",
+                        "type": "text/javascript",
+                        "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
+                    }
+                }
+            ]
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "id": "ba38772a-5c4b-4b57-b36e-45a9cfe1239f",
+                "type": "text/javascript",
+                "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "id": "0f3f4005-daf4-4639-a558-6ed8f7ba347d",
+                "type": "text/javascript",
+                "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
+            }
+        }
+    ]
+}
