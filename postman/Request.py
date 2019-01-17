@@ -2,6 +2,7 @@
 from urllib.parse import urlparse
 from .Base import *
 import copy
+import json
 
 
 class Request(Base):
@@ -41,7 +42,8 @@ class Request(Base):
         if len(paths) != 0:
             for i in paths[1:]:
                 self._request["url"]["path"].append(i)
-        self._request["body"]["raw"] = str(data).replace("\'", "\"")
+        self._request["body"]["raw"] = json.dumps(data, ensure_ascii=False) \
+            .replace("True", "true").replace("False", "false")
         if parsed_uri.query != "":
             query = parsed_uri.query.split("&")
             if len(query) != 0:
