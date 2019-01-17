@@ -1,6 +1,7 @@
 # coding = utf-8
 from urllib.parse import urlparse
 from .Base import *
+import copy
 
 
 class Request(Base):
@@ -17,8 +18,10 @@ class Request(Base):
             },
             "url": {
                 "raw": "",
+                "protocol": "",
                 "host": [],
-                "path": []
+                "path": [],
+                "query": []
             }
         }
         self._response = []
@@ -26,15 +29,27 @@ class Request(Base):
     def set_request(self, method, url, header, data):
         self._request["method"] = method
         for key in header.keys():
-            self._request["header"].append({"key": key, "value": header[key], "type": "text"})
+            self._request["header"].append(
+                {"key": key, "value": header[key], "type": "text"} if key != "Content-Type"
+                else {"key": key, "value": header[key], "name": key, "type": "text"})
         self._request["url"]["raw"] = url
-        parsed_uri = urlparse(url)
-        self._request["url"]["host"].append(parsed_uri.netloc if parsed_uri.netloc != "" else "")
+        parsed_uri = urlparse(copy.deepcopy(url))
+        self._request["url"]["protocol"] = parsed_uri.scheme
+        if parsed_uri.netloc != "":
+            self._request["url"]["host"] += parsed_uri.netloc.split(".")
         paths = parsed_uri.path.split("/")
         if len(paths) != 0:
             for i in paths[1:]:
                 self._request["url"]["path"].append(i)
-        self._request["body"]["raw"] = str(data)
+        self._request["body"]["raw"] = str(data).replace("\'", "\"")
+        if parsed_uri.query != "":
+            query = parsed_uri.query.split("&")
+            if len(query) != 0:
+                for i in query:
+                    temp = i.split("=")
+                    if len(temp) != 0:
+                        self._request["url"]["query"].append(
+                            {"key": temp[0], "value": "" if len(temp) == 1 else temp[1]})
 
     def get_json(self):
         self._json = {

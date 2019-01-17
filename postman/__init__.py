@@ -1,1 +1,1 @@
-__all__ = ["Request", "Folder", "Collection", "Script"]
+__all__ = ["Request", "Folder", "Collection", "Script", "config"]

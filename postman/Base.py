@@ -12,7 +12,7 @@ class Base:
         flag = False
         for item in self._event:
             if item["listen"] == "prerequest":
-                item["script"]["exec"] = script
+                item["script"]["exec"] = script.get_script()
                 flag = True
         if not flag:
             self._event.append({
@@ -20,7 +20,7 @@ class Base:
                 "script": {
                     "id": str(uuid.uuid4()),
                     "type": "text/javascript",
-                    "exec": script
+                    "exec": script.get_script()
                 }
             })
 
@@ -28,7 +28,7 @@ class Base:
         flag = False
         for item in self._event:
             if item["listen"] == "test":
-                item["script"]["exec"] = script
+                item["script"]["exec"] = script.get_script()
                 flag = True
         if not flag:
             self._event.append({
@@ -36,7 +36,7 @@ class Base:
                 "script": {
                     "id": str(uuid.uuid4()),
                     "type": "text/javascript",
-                    "exec": script
+                    "exec": script.get_script()
                 }
             })
 

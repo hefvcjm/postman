@@ -1,0 +1,58 @@
+# test flow
+1. status code
+2. response json
+3. response json schema
+4. message code
+5. message data schema
+6. message specific string
+7. save response or not(use environment)
+
+# operation flow
+1. code for specific function
+2. set pre-script
+3. send request or not
+3. set url
+4. set header
+5. set data
+6. set test-script(test flow)
+
+#normal setting
+pre_script.send_request(url, method, header, body, res_save, keys)
+set_request(method, url, header, data)
+test_script.test_status_code()
+test_script.test_response_json()
+test_script.test_response_schema(json)
+test_script.test_response_json_has(["code"],0)
+test_script.test_has_string("")
+
+
+################
+pre_send:[
+    {
+        method:
+        url:
+        header:
+        body:
+        save:{
+            a.b.c:"key",
+        }
+	}
+]
+name:
+method:
+url:
+header:
+body:
+test:
+	status_code:
+	json_schema:
+	attr:{
+		a.b.c:XXX,
+		c.a.e:"ooo"
+	}
+	has:[
+		"a",
+		"b"
+	]
+
+

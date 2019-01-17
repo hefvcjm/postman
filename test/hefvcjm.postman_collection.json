@@ -1,78 +1,30 @@
 {
     "info": {
-        "_postman_id": "d29e060e-e4d9-4515-b431-2a217d083276",
+        "_postman_id": "7888d64a-8eeb-47ad-8847-33f3a794fd4d",
         "name": "hefvcjm",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
         {
-            "name": "login",
-            "event": [
-                {
-                    "listen": "prerequest",
-                    "script": {
-                        "id": "01465841-87be-4b61-8817-39519ad7a4f5",
-                        "type": "text/javascript",
-                        "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
-                    }
-                },
-                {
-                    "listen": "test",
-                    "script": {
-                        "id": "1522344b-ea8a-44b6-8445-dfdf1c6abaf7",
-                        "type": "text/javascript",
-                        "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
-                    }
-                }
-            ],
-            "request": {
-                "method": "GET",
-                "header": [
-                    {
-                        "key": "Content-Type",
-                        "value": "json/application",
-                        "type": "text"
-                    }
-                ],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{'username': 'administrator', 'password': 'xA123456'}"
-                },
-                "url": {
-                    "raw": "http://39.104.25.189:8188/matdata/v1/user/login?username=administrator&password=xA123456",
-                    "host": [
-                        "39.104.25.189:8188"
-                    ],
-                    "path": [
-                        "matdata",
-                        "v1",
-                        "user",
-                        "login"
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "test",
+            "name": "\u767b\u5f55",
             "item": [
                 {
-                    "name": "login",
+                    "name": "\u7528\u6237\u540d\u767b\u5f55",
                     "event": [
                         {
                             "listen": "prerequest",
                             "script": {
-                                "id": "01465841-87be-4b61-8817-39519ad7a4f5",
+                                "id": "6671d343-613c-4bbf-b6ac-7c7018ecc12b",
                                 "type": "text/javascript",
-                                "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
+                                "exec": ""
                             }
                         },
                         {
                             "listen": "test",
                             "script": {
-                                "id": "1522344b-ea8a-44b6-8445-dfdf1c6abaf7",
+                                "id": "dd85dfdc-ee07-4db8-a7f8-6ea195ed858a",
                                 "type": "text/javascript",
-                                "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
+                                "exec": "\n        pm.test(\"Status code is 200\", function () {\n            pm.response.to.have.status(200);\n        });        \n        \n        pm.test('\u8fd4\u56dejson\u683c\u5f0f\u6570\u636e', () => {\n            pm.response.to.be.json;\n            pm.response.to.have.header('Content-Type', 'application/json;charset=UTF-8');\n        });  \n        \n        \n        pm.test('json\u6570\u636e\u6a21\u5f0f\u6b63\u786e', function() {\n            var result=tv4.validateResult(JSON.parse(responseBody), {'$schema': 'http://json-schema.org/schema#', 'type': 'object', 'properties': {'data': {'type': 'object'}, 'message': {'type': 'string'}, 'code': {'type': 'integer'}, 'success': {'type': 'boolean'}}, 'required': ['code', 'data', 'message', 'success']});\n            if(!result.valid){\n                console.log(result);\n            }\n            pm.expect(result.valid).to.be.true;\n        });\n        \n        pm.test(\"code\u5b57\u6bb5\u4e3a0\",function(){\n            pm.expect(pm.response.json().code).to.eql(0);\n        });\n        \n        \n        pm.test(\"success\u5b57\u6bb5\u4e3atrue\",function(){\n            pm.expect(pm.response.json().success).to.eql(true);\n        });\n        \n        \n        pm.test(\"message\u5b57\u6bb5\u4e3a'\u67e5\u8be2\u6210\u529f'\",function(){\n            pm.expect(pm.response.json().message).to.eql('\u67e5\u8be2\u6210\u529f');\n        });\n        \n        \n        pm.test(\"Body matches 'administrator'\", function () {\n            pm.expect(pm.response.text()).to.include(\"administrator\");\n        });\n        \n        "
                             }
                         }
                     ],
@@ -82,65 +34,656 @@
                             {
                                 "key": "Content-Type",
                                 "value": "json/application",
+                                "name": "Content-Type",
                                 "type": "text"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{'username': 'administrator', 'password': 'xA123456'}"
+                            "raw": "{}"
                         },
                         "url": {
-                            "raw": "http://39.104.25.189:8188/matdata/v1/user/login?username=administrator&password=xA123456",
+                            "raw": "http://localhost:8080/matdata/v1/user/login?username=administrator&password=xA123456",
+                            "protocol": "http",
                             "host": [
-                                "39.104.25.189:8188"
+                                "localhost:8080"
                             ],
                             "path": [
                                 "matdata",
                                 "v1",
                                 "user",
                                 "login"
+                            ],
+                            "query": [
+                                {
+                                    "key": "username",
+                                    "value": "administrator"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "xA123456"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "\u7528\u6237\u540d\u767b\u5f55-\u5bc6\u7801\u9519\u8bef",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "0d0f9e9f-bad0-412a-812e-588e0d532816",
+                                "type": "text/javascript",
+                                "exec": ""
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "05bc1547-ee59-4a09-8e29-0c73697d2997",
+                                "type": "text/javascript",
+                                "exec": "\n        pm.test(\"Status code is 200\", function () {\n            pm.response.to.have.status(200);\n        });        \n        \n        pm.test('\u8fd4\u56dejson\u683c\u5f0f\u6570\u636e', () => {\n            pm.response.to.be.json;\n            pm.response.to.have.header('Content-Type', 'application/json;charset=UTF-8');\n        });  \n        \n        \n        pm.test('json\u6570\u636e\u6a21\u5f0f\u6b63\u786e', function() {\n            var result=tv4.validateResult(JSON.parse(responseBody), {'$schema': 'http://json-schema.org/schema#', 'type': 'object', 'properties': {'message': {'type': 'string'}, 'success': {'type': 'boolean'}, 'code': {'type': 'integer'}}, 'required': ['code', 'message', 'success']});\n            if(!result.valid){\n                console.log(result);\n            }\n            pm.expect(result.valid).to.be.true;\n        });\n        \n        pm.test(\"code\u5b57\u6bb5\u4e3a2020\",function(){\n            pm.expect(pm.response.json().code).to.eql(2020);\n        });\n        \n        \n        pm.test(\"success\u5b57\u6bb5\u4e3afalse\",function(){\n            pm.expect(pm.response.json().success).to.eql(false);\n        });\n        \n        \n        pm.test(\"message\u5b57\u6bb5\u4e3a'\u5bc6\u7801\u9519\u8bef'\",function(){\n            pm.expect(pm.response.json().message).to.eql('\u5bc6\u7801\u9519\u8bef');\n        });\n        \n        "
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "json/application",
+                                "name": "Content-Type",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8080/matdata/v1/user/login?username=administrator&password=xA123446",
+                            "protocol": "http",
+                            "host": [
+                                "localhost:8080"
+                            ],
+                            "path": [
+                                "matdata",
+                                "v1",
+                                "user",
+                                "login"
+                            ],
+                            "query": [
+                                {
+                                    "key": "username",
+                                    "value": "administrator"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "xA123446"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "\u7528\u6237\u540d\u767b\u5f55-\u4e0d\u8f93\u5165\u5bc6\u7801",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "6bf51d43-e168-4c20-b162-0c6f62f095d7",
+                                "type": "text/javascript",
+                                "exec": ""
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "f1743b51-53fe-4689-aafb-d60975936e47",
+                                "type": "text/javascript",
+                                "exec": "\n        pm.test(\"Status code is 200\", function () {\n            pm.response.to.have.status(200);\n        });        \n        \n        pm.test('\u8fd4\u56dejson\u683c\u5f0f\u6570\u636e', () => {\n            pm.response.to.be.json;\n            pm.response.to.have.header('Content-Type', 'application/json;charset=UTF-8');\n        });  \n        \n        \n        pm.test('json\u6570\u636e\u6a21\u5f0f\u6b63\u786e', function() {\n            var result=tv4.validateResult(JSON.parse(responseBody), {'$schema': 'http://json-schema.org/schema#', 'type': 'object', 'properties': {'message': {'type': 'string'}, 'success': {'type': 'boolean'}, 'code': {'type': 'integer'}}, 'required': ['code', 'message', 'success']});\n            if(!result.valid){\n                console.log(result);\n            }\n            pm.expect(result.valid).to.be.true;\n        });\n        \n        pm.test(\"code\u5b57\u6bb5\u4e3a2020\",function(){\n            pm.expect(pm.response.json().code).to.eql(2020);\n        });\n        \n        \n        pm.test(\"success\u5b57\u6bb5\u4e3afalse\",function(){\n            pm.expect(pm.response.json().success).to.eql(false);\n        });\n        \n        \n        pm.test(\"message\u5b57\u6bb5\u4e3a'\u5bc6\u7801\u9519\u8bef'\",function(){\n            pm.expect(pm.response.json().message).to.eql('\u5bc6\u7801\u9519\u8bef');\n        });\n        \n        "
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "json/application",
+                                "name": "Content-Type",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8080/matdata/v1/user/login?username=administrator&password=",
+                            "protocol": "http",
+                            "host": [
+                                "localhost:8080"
+                            ],
+                            "path": [
+                                "matdata",
+                                "v1",
+                                "user",
+                                "login"
+                            ],
+                            "query": [
+                                {
+                                    "key": "username",
+                                    "value": "administrator"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": ""
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "\u7528\u6237\u540d\u767b\u5f55-\u672a\u6ce8\u518c\u7528\u6237",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "3ae98147-ef13-44ec-b0c7-26e6b942ec82",
+                                "type": "text/javascript",
+                                "exec": ""
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "983f98e9-2ca1-40dc-b2be-bad175d3386a",
+                                "type": "text/javascript",
+                                "exec": "\n        pm.test(\"Status code is 200\", function () {\n            pm.response.to.have.status(200);\n        });        \n        \n        pm.test('\u8fd4\u56dejson\u683c\u5f0f\u6570\u636e', () => {\n            pm.response.to.be.json;\n            pm.response.to.have.header('Content-Type', 'application/json;charset=UTF-8');\n        });  \n        \n        \n        pm.test('json\u6570\u636e\u6a21\u5f0f\u6b63\u786e', function() {\n            var result=tv4.validateResult(JSON.parse(responseBody), {'$schema': 'http://json-schema.org/schema#', 'type': 'object', 'properties': {'message': {'type': 'string'}, 'success': {'type': 'boolean'}, 'code': {'type': 'integer'}}, 'required': ['code', 'message', 'success']});\n            if(!result.valid){\n                console.log(result);\n            }\n            pm.expect(result.valid).to.be.true;\n        });\n        \n        pm.test(\"code\u5b57\u6bb5\u4e3a2019\",function(){\n            pm.expect(pm.response.json().code).to.eql(2019);\n        });\n        \n        \n        pm.test(\"success\u5b57\u6bb5\u4e3afalse\",function(){\n            pm.expect(pm.response.json().success).to.eql(false);\n        });\n        \n        \n        pm.test(\"message\u5b57\u6bb5\u4e3a'\u7528\u6237\u4e0d\u5b58\u5728'\",function(){\n            pm.expect(pm.response.json().message).to.eql('\u7528\u6237\u4e0d\u5b58\u5728');\n        });\n        \n        "
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "json/application",
+                                "name": "Content-Type",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8080/matdata/v1/user/login?username=administ&password=fasdfa",
+                            "protocol": "http",
+                            "host": [
+                                "localhost:8080"
+                            ],
+                            "path": [
+                                "matdata",
+                                "v1",
+                                "user",
+                                "login"
+                            ],
+                            "query": [
+                                {
+                                    "key": "username",
+                                    "value": "administ"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "fasdfa"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "\u90ae\u7bb1\u767b\u5f55-\u6b63\u5e38",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "ceef2078-76fa-401e-97fe-395ae8b94843",
+                                "type": "text/javascript",
+                                "exec": ""
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "5d857cba-6c12-417d-ad2c-ece329b22829",
+                                "type": "text/javascript",
+                                "exec": "\n        pm.test(\"Status code is 200\", function () {\n            pm.response.to.have.status(200);\n        });        \n        \n        pm.test('\u8fd4\u56dejson\u683c\u5f0f\u6570\u636e', () => {\n            pm.response.to.be.json;\n            pm.response.to.have.header('Content-Type', 'application/json;charset=UTF-8');\n        });  \n        \n        \n        pm.test('json\u6570\u636e\u6a21\u5f0f\u6b63\u786e', function() {\n            var result=tv4.validateResult(JSON.parse(responseBody), {'$schema': 'http://json-schema.org/schema#', 'type': 'object', 'properties': {'data': {'type': 'object'}, 'message': {'type': 'string'}, 'code': {'type': 'integer'}, 'success': {'type': 'boolean'}}, 'required': ['code', 'data', 'message', 'success']});\n            if(!result.valid){\n                console.log(result);\n            }\n            pm.expect(result.valid).to.be.true;\n        });\n        \n        pm.test(\"code\u5b57\u6bb5\u4e3a0\",function(){\n            pm.expect(pm.response.json().code).to.eql(0);\n        });\n        \n        \n        pm.test(\"success\u5b57\u6bb5\u4e3atrue\",function(){\n            pm.expect(pm.response.json().success).to.eql(true);\n        });\n        \n        \n        pm.test(\"message\u5b57\u6bb5\u4e3a'\u67e5\u8be2\u6210\u529f'\",function(){\n            pm.expect(pm.response.json().message).to.eql('\u67e5\u8be2\u6210\u529f');\n        });\n        \n        \n        pm.test(\"Body matches 'admin@mkapp.com'\", function () {\n            pm.expect(pm.response.text()).to.include(\"admin@mkapp.com\");\n        });\n        \n        "
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "json/application",
+                                "name": "Content-Type",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8080/matdata/v1/user/login?username=admin@mkapp.com&password=xA123456",
+                            "protocol": "http",
+                            "host": [
+                                "localhost:8080"
+                            ],
+                            "path": [
+                                "matdata",
+                                "v1",
+                                "user",
+                                "login"
+                            ],
+                            "query": [
+                                {
+                                    "key": "username",
+                                    "value": "admin@mkapp.com"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "xA123456"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "\u90ae\u7bb1\u767b\u5f55-\u5bc6\u7801\u9519\u8bef",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "00405154-a3d9-40dd-9db7-86e39edf41f4",
+                                "type": "text/javascript",
+                                "exec": ""
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "e3fcf55e-2fa5-4c3f-8b36-ebdfdac73d09",
+                                "type": "text/javascript",
+                                "exec": "\n        pm.test(\"Status code is 200\", function () {\n            pm.response.to.have.status(200);\n        });        \n        \n        pm.test('\u8fd4\u56dejson\u683c\u5f0f\u6570\u636e', () => {\n            pm.response.to.be.json;\n            pm.response.to.have.header('Content-Type', 'application/json;charset=UTF-8');\n        });  \n        \n        \n        pm.test('json\u6570\u636e\u6a21\u5f0f\u6b63\u786e', function() {\n            var result=tv4.validateResult(JSON.parse(responseBody), {'$schema': 'http://json-schema.org/schema#', 'type': 'object', 'properties': {'message': {'type': 'string'}, 'success': {'type': 'boolean'}, 'code': {'type': 'integer'}}, 'required': ['code', 'message', 'success']});\n            if(!result.valid){\n                console.log(result);\n            }\n            pm.expect(result.valid).to.be.true;\n        });\n        \n        pm.test(\"code\u5b57\u6bb5\u4e3a2020\",function(){\n            pm.expect(pm.response.json().code).to.eql(2020);\n        });\n        \n        \n        pm.test(\"success\u5b57\u6bb5\u4e3afalse\",function(){\n            pm.expect(pm.response.json().success).to.eql(false);\n        });\n        \n        \n        pm.test(\"message\u5b57\u6bb5\u4e3a'\u5bc6\u7801\u9519\u8bef'\",function(){\n            pm.expect(pm.response.json().message).to.eql('\u5bc6\u7801\u9519\u8bef');\n        });\n        \n        "
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "json/application",
+                                "name": "Content-Type",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8080/matdata/v1/user/login?username=admin@mkapp.com&password=xA123446",
+                            "protocol": "http",
+                            "host": [
+                                "localhost:8080"
+                            ],
+                            "path": [
+                                "matdata",
+                                "v1",
+                                "user",
+                                "login"
+                            ],
+                            "query": [
+                                {
+                                    "key": "username",
+                                    "value": "admin@mkapp.com"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "xA123446"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "\u90ae\u7bb1\u767b\u5f55-\u4e0d\u8f93\u5165\u5bc6\u7801",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "f1160171-00ae-42d9-9329-bd85ff8b9dff",
+                                "type": "text/javascript",
+                                "exec": ""
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "4d9d9cc4-9758-4acf-85c7-148a21fcf29f",
+                                "type": "text/javascript",
+                                "exec": "\n        pm.test(\"Status code is 200\", function () {\n            pm.response.to.have.status(200);\n        });        \n        \n        pm.test('\u8fd4\u56dejson\u683c\u5f0f\u6570\u636e', () => {\n            pm.response.to.be.json;\n            pm.response.to.have.header('Content-Type', 'application/json;charset=UTF-8');\n        });  \n        \n        \n        pm.test('json\u6570\u636e\u6a21\u5f0f\u6b63\u786e', function() {\n            var result=tv4.validateResult(JSON.parse(responseBody), {'$schema': 'http://json-schema.org/schema#', 'type': 'object', 'properties': {'message': {'type': 'string'}, 'success': {'type': 'boolean'}, 'code': {'type': 'integer'}}, 'required': ['code', 'message', 'success']});\n            if(!result.valid){\n                console.log(result);\n            }\n            pm.expect(result.valid).to.be.true;\n        });\n        \n        pm.test(\"code\u5b57\u6bb5\u4e3a2020\",function(){\n            pm.expect(pm.response.json().code).to.eql(2020);\n        });\n        \n        \n        pm.test(\"success\u5b57\u6bb5\u4e3afalse\",function(){\n            pm.expect(pm.response.json().success).to.eql(false);\n        });\n        \n        \n        pm.test(\"message\u5b57\u6bb5\u4e3a'\u5bc6\u7801\u9519\u8bef'\",function(){\n            pm.expect(pm.response.json().message).to.eql('\u5bc6\u7801\u9519\u8bef');\n        });\n        \n        "
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "json/application",
+                                "name": "Content-Type",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8080/matdata/v1/user/login?username=admin@mkapp.com&password=",
+                            "protocol": "http",
+                            "host": [
+                                "localhost:8080"
+                            ],
+                            "path": [
+                                "matdata",
+                                "v1",
+                                "user",
+                                "login"
+                            ],
+                            "query": [
+                                {
+                                    "key": "username",
+                                    "value": "admin@mkapp.com"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": ""
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "\u90ae\u7bb1\u767b\u5f55-\u672a\u6ce8\u518c\u7528\u6237",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "029b38a0-3aa5-4f40-83a8-6e771ab34807",
+                                "type": "text/javascript",
+                                "exec": ""
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "43844996-953e-4bc1-aa61-149d2938ea54",
+                                "type": "text/javascript",
+                                "exec": "\n        pm.test(\"Status code is 200\", function () {\n            pm.response.to.have.status(200);\n        });        \n        \n        pm.test('\u8fd4\u56dejson\u683c\u5f0f\u6570\u636e', () => {\n            pm.response.to.be.json;\n            pm.response.to.have.header('Content-Type', 'application/json;charset=UTF-8');\n        });  \n        \n        \n        pm.test('json\u6570\u636e\u6a21\u5f0f\u6b63\u786e', function() {\n            var result=tv4.validateResult(JSON.parse(responseBody), {'$schema': 'http://json-schema.org/schema#', 'type': 'object', 'properties': {'message': {'type': 'string'}, 'success': {'type': 'boolean'}, 'code': {'type': 'integer'}}, 'required': ['code', 'message', 'success']});\n            if(!result.valid){\n                console.log(result);\n            }\n            pm.expect(result.valid).to.be.true;\n        });\n        \n        pm.test(\"code\u5b57\u6bb5\u4e3a2019\",function(){\n            pm.expect(pm.response.json().code).to.eql(2019);\n        });\n        \n        \n        pm.test(\"success\u5b57\u6bb5\u4e3afalse\",function(){\n            pm.expect(pm.response.json().success).to.eql(false);\n        });\n        \n        \n        pm.test(\"message\u5b57\u6bb5\u4e3a'\u7528\u6237\u4e0d\u5b58\u5728'\",function(){\n            pm.expect(pm.response.json().message).to.eql('\u7528\u6237\u4e0d\u5b58\u5728');\n        });\n        \n        "
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "json/application",
+                                "name": "Content-Type",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8080/matdata/v1/user/login?username=fdsafgds@mkapp.com&password=fasdfa",
+                            "protocol": "http",
+                            "host": [
+                                "localhost:8080"
+                            ],
+                            "path": [
+                                "matdata",
+                                "v1",
+                                "user",
+                                "login"
+                            ],
+                            "query": [
+                                {
+                                    "key": "username",
+                                    "value": "fdsafgds@mkapp.com"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "fasdfa"
+                                }
                             ]
                         }
                     },
                     "response": []
                 }
             ],
-            "event": [
-                {
-                    "listen": "prerequest",
-                    "script": {
-                        "id": "ef082a3e-96bb-4c14-b260-d5e9cf806777",
-                        "type": "text/javascript",
-                        "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
-                    }
-                },
-                {
-                    "listen": "test",
-                    "script": {
-                        "id": "e2a4ff95-f0bc-4327-8b4a-7aab171fcb0e",
-                        "type": "text/javascript",
-                        "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
-                    }
-                }
-            ]
-        }
-    ],
-    "event": [
-        {
-            "listen": "prerequest",
-            "script": {
-                "id": "ba38772a-5c4b-4b57-b36e-45a9cfe1239f",
-                "type": "text/javascript",
-                "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
-            }
+            "event": []
         },
         {
-            "listen": "test",
-            "script": {
-                "id": "0f3f4005-daf4-4639-a558-6ed8f7ba347d",
-                "type": "text/javascript",
-                "exec": "pm.globals.set(\"test\", \"test\");\r\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://39.104.25.189:8188/matdata/v1/user/login\",\r          method: \"POST\",\r          header: \"{'Content-type': 'json/application'}\",\r          body: {\r            mode: 'raw',\r            raw: \"{'test': 'test'}\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r              \"\"\r          }\r        });\r        \r        "
-            }
+            "name": "\u83b7\u53d6\u7528\u6237\u4fe1\u606f",
+            "item": [
+                {
+                    "name": "\u83b7\u53d6\u5f53\u524d\u7528\u6237",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "291ffc70-0e15-4346-9520-f0aac5d40a20",
+                                "type": "text/javascript",
+                                "exec": "\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://localhost:8080/matdata/v1/user/login?username=administrator&password=xA123456\",\r          method: \"GET\",\r          header: {'Content-Type': 'json/application'},\r          body: {\r            mode: 'raw',\r            raw: \"\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r                        pm.environment.set('user',res.json().data.username);\r          pm.environment.set('token',res.json().data.usertoken);\r          pm.environment.set('user_objectId',res.json().data.objectId);\r\r          }\r        });\r        \r        "
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "9b3fcbf9-4dd8-4c10-82c3-219aa30d3e1d",
+                                "type": "text/javascript",
+                                "exec": "\n        pm.test(\"Status code is 200\", function () {\n            pm.response.to.have.status(200);\n        });        \n        \n        pm.test('\u8fd4\u56dejson\u683c\u5f0f\u6570\u636e', () => {\n            pm.response.to.be.json;\n            pm.response.to.have.header('Content-Type', 'application/json;charset=UTF-8');\n        });  \n        \n        \n        pm.test('json\u6570\u636e\u6a21\u5f0f\u6b63\u786e', function() {\n            var result=tv4.validateResult(JSON.parse(responseBody), {'$schema': 'http://json-schema.org/schema#', 'type': 'object', 'properties': {'data': {'type': 'object'}, 'message': {'type': 'string'}, 'code': {'type': 'integer'}, 'success': {'type': 'boolean'}}, 'required': ['code', 'data', 'message', 'success']});\n            if(!result.valid){\n                console.log(result);\n            }\n            pm.expect(result.valid).to.be.true;\n        });\n        \n        pm.test(\"code\u5b57\u6bb5\u4e3a0\",function(){\n            pm.expect(pm.response.json().code).to.eql(0);\n        });\n        \n        \n        pm.test(\"success\u5b57\u6bb5\u4e3atrue\",function(){\n            pm.expect(pm.response.json().success).to.eql(true);\n        });\n        \n        \n        pm.test(\"message\u5b57\u6bb5\u4e3a'\u67e5\u8be2\u6210\u529f'\",function(){\n            pm.expect(pm.response.json().message).to.eql('\u67e5\u8be2\u6210\u529f');\n        });\n        \n        \n        pm.test(\"Body matches 'administrator'\", function () {\n            pm.expect(pm.response.text()).to.include(\"administrator\");\n        });\n        \n        "
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "json/application",
+                                "name": "Content-Type",
+                                "type": "text"
+                            },
+                            {
+                                "key": "username",
+                                "value": "{{user}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "usertoken",
+                                "value": "{{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8080/matdata/v1/user/{{user_objectId}}",
+                            "protocol": "http",
+                            "host": [
+                                "localhost:8080"
+                            ],
+                            "path": [
+                                "matdata",
+                                "v1",
+                                "user",
+                                "{{user_objectId}}"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "\u83b7\u53d6\u6240\u6709\u7528\u6237",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "a5733401-3b2f-4b55-b00a-e7d172968686",
+                                "type": "text/javascript",
+                                "exec": ""
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "4d7da84b-5d43-4a25-aa8a-f74f73be1c86",
+                                "type": "text/javascript",
+                                "exec": "\n        pm.test(\"Status code is 200\", function () {\n            pm.response.to.have.status(200);\n        });        \n        \n        pm.test('\u8fd4\u56dejson\u683c\u5f0f\u6570\u636e', () => {\n            pm.response.to.be.json;\n            pm.response.to.have.header('Content-Type', 'application/json;charset=UTF-8');\n        });  \n        \n        \n        pm.test('json\u6570\u636e\u6a21\u5f0f\u6b63\u786e', function() {\n            var result=tv4.validateResult(JSON.parse(responseBody), {'$schema': 'http://json-schema.org/schema#', 'type': 'object', 'properties': {'data': {'type': 'object'}, 'message': {'type': 'string'}, 'code': {'type': 'integer'}, 'success': {'type': 'boolean'}}, 'required': ['code', 'data', 'message', 'success']});\n            if(!result.valid){\n                console.log(result);\n            }\n            pm.expect(result.valid).to.be.true;\n        });\n        \n        pm.test(\"code\u5b57\u6bb5\u4e3a0\",function(){\n            pm.expect(pm.response.json().code).to.eql(0);\n        });\n        \n        \n        pm.test(\"success\u5b57\u6bb5\u4e3atrue\",function(){\n            pm.expect(pm.response.json().success).to.eql(true);\n        });\n        \n        \n        pm.test(\"message\u5b57\u6bb5\u4e3a'\u67e5\u8be2\u6210\u529f'\",function(){\n            pm.expect(pm.response.json().message).to.eql('\u67e5\u8be2\u6210\u529f');\n        });\n        \n        \n        pm.test(\"Body matches 'administrator'\", function () {\n            pm.expect(pm.response.text()).to.include(\"administrator\");\n        });\n        \n        "
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "json/application",
+                                "name": "Content-Type",
+                                "type": "text"
+                            },
+                            {
+                                "key": "username",
+                                "value": "{{user}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "usertoken",
+                                "value": "{{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8080/matdata/v1/user",
+                            "protocol": "http",
+                            "host": [
+                                "localhost:8080"
+                            ],
+                            "path": [
+                                "matdata",
+                                "v1",
+                                "user"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "event": []
+        },
+        {
+            "name": "\u65b0\u5efa\u8bbe\u5907",
+            "item": [
+                {
+                    "name": "\u6b63\u5e38-\u5e26formconfig",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "3b8d3558-3065-495d-9a06-a6ad47b7c9ff",
+                                "type": "text/javascript",
+                                "exec": "\r        // Example with a full fledged SDK Request\r        const my_request = {\r          url: \"http://localhost:8080/matdata/v1/user/login?username=administrator&password=xA123456\",\r          method: \"GET\",\r          header: {'Content-Type': 'json/application'},\r          body: {\r            mode: 'raw',\r            raw: \"\"\r          }\r        };\r        pm.sendRequest(my_request, function (err, res) {\r          if (err) {\r              console.log(err);\r          } else {\r                        pm.environment.set('user',res.json().data.username);\r          pm.environment.set('token',res.json().data.usertoken);\r          pm.environment.set('user_objectId',res.json().data.objectId);\r\r          }\r        });\r        \r        "
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "07ea329f-d554-46ba-b965-4bede26ef5d2",
+                                "type": "text/javascript",
+                                "exec": "\n        pm.test(\"Status code is 200\", function () {\n            pm.response.to.have.status(200);\n        });        \n        \n        pm.test('\u8fd4\u56dejson\u683c\u5f0f\u6570\u636e', () => {\n            pm.response.to.be.json;\n            pm.response.to.have.header('Content-Type', 'application/json;charset=UTF-8');\n        });  \n        \n        \n        pm.test('json\u6570\u636e\u6a21\u5f0f\u6b63\u786e', function() {\n            var result=tv4.validateResult(JSON.parse(responseBody), {'$schema': 'http://json-schema.org/schema#', 'type': 'object', 'properties': {'data': {'type': 'object', 'properties': {'objectId': {'type': 'string'}, 'locktime': {'type': 'integer'}, 'createDate': {'type': 'string'}, 'updateDate': {'type': 'string'}, 'createUser': {'type': 'string'}, 'updateUser': {'type': 'string'}, 'name': {'type': 'string'}, 'isassign': {'type': 'boolean'}, 'foldername': {'type': 'string'}, 'formconfig': {'type': 'string'}}, 'required': ['createDate', 'createUser', 'foldername', 'formconfig', 'isassign', 'locktime', 'name', 'objectId', 'updateDate', 'updateUser']}, 'message': {'type': 'string'}, 'success': {'type': 'boolean'}, 'code': {'type': 'integer'}}, 'required': ['code', 'data', 'message', 'success']});\n            if(!result.valid){\n                console.log(result);\n            }\n            pm.expect(result.valid).to.be.true;\n        });\n        \n        pm.test(\"code\u5b57\u6bb5\u4e3a0\",function(){\n            pm.expect(pm.response.json().code).to.eql(0);\n        });\n        \n        \n        pm.test(\"success\u5b57\u6bb5\u4e3atrue\",function(){\n            pm.expect(pm.response.json().success).to.eql(true);\n        });\n        \n        \n        pm.test(\"message\u5b57\u6bb5\u4e3a'\u6267\u884c\u6210\u529f'\",function(){\n            pm.expect(pm.response.json().message).to.eql('\u6267\u884c\u6210\u529f');\n        });\n        \n        \n        pm.test(\"Body matches 'test instrument'\", function () {\n            pm.expect(pm.response.text()).to.include(\"test instrument\");\n        });\n        \n        \n        pm.test(\"Body matches 'component'\", function () {\n            pm.expect(pm.response.text()).to.include(\"component\");\n        });\n        \n        "
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "json/application",
+                                "name": "Content-Type",
+                                "type": "text"
+                            },
+                            {
+                                "key": "username",
+                                "value": "{{user}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "usertoken",
+                                "value": "{{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\": \"test instrument\", \"foldername\": \"test instrument\", \"formconfig\": \"[{\"component\":\"textArea\",\"editable\":true,\"index\":0,\"label\":\"\u7b14\u8bb0\",\"description\":\"\",\"placeholder\":\"\u8bf7\u8f93\u5165...\",\"options\":[],\"options2\":[],\"options3\":[],\"required\":false,\"validation\":\"/.*/\",\"$$hashKey\":\"object:742\"},{\"component\":\"radio\",\"editable\":true,\"index\":1,\"label\":\"\u6750\u6599\u7c7b\u578b\",\"description\":\"\",\"placeholder\":\"placeholder\",\"options\":[\"\u91d1\u5c5e\u5757\u4f53\",\"\u8584\u819c\",\"\u751f\u7269\u6837\u54c1\",\"\u5176\u4ed6\"],\"options2\":[],\"options3\":[],\"required\":false,\"validation\":\"/.*/\",\"$$hashKey\":\"object:684\"},{\"component\":\"textArea\",\"editable\":true,\"index\":2,\"label\":\"\u52a0\u5de5\u5386\u53f2\",\"description\":\"\",\"placeholder\":\"\u8bf7\u8f93\u5165...\",\"options\":[],\"options2\":[],\"options3\":[],\"required\":false,\"validation\":\"/.*/\",\"$$hashKey\":\"object:755\"},{\"component\":\"radio\",\"editable\":true,\"index\":3,\"label\":\"\u538b\u5934\u5f62\u72b6\",\"description\":\"\",\"placeholder\":\"placeholder\",\"options\":[\"berkovich\",\"\u7acb\u65b9\u9525\u89d2\",\"\u5706\u9525\",\"\u5e73\u538b\u5934\",\"\u5176\u4ed6\"],\"options2\":[],\"options3\":[],\"required\":false,\"validation\":\"/.*/\",\"$$hashKey\":\"object:431\"},{\"component\":\"radio\",\"editable\":true,\"index\":4,\"label\":\"\u538b\u5934\u6750\u6599\",\"description\":\"\",\"placeholder\":\"placeholder\",\"options\":[\"\u91d1\u521a\u77f3\",\"\u84dd\u5b9d\u77f3\",\"\u94a8\",\"\u5176\u4ed6\"],\"options2\":[],\"options3\":[],\"required\":false,\"validation\":\"/.*/\",\"$$hashKey\":\"object:382\"},{\"component\":\"textArea\",\"editable\":true,\"index\":5,\"label\":\"\u7ec4\u7ec7\u7279\u5f81\",\"description\":\"\",\"placeholder\":\"\u8bf7\u8f93\u5165...\",\"options\":[],\"options2\":[],\"options3\":[],\"required\":false,\"validation\":\"/.*/\",\"$$hashKey\":\"object:806\"},{\"component\":\"textInput\",\"editable\":true,\"index\":6,\"label\":\"\u5c48\u670d\u5f3a\u5ea6\",\"description\":\"MPa\",\"placeholder\":\"\u8bf7\u8f93\u5165....\",\"options\":[],\"options2\":[],\"options3\":[],\"required\":false,\"validation\":\"[number]\",\"$$hashKey\":\"object:779\"},{\"component\":\"thirdcascapeselect\",\"editable\":true,\"index\":7,\"label\":\"\u6837\u54c1\u5c3a\u5bf8\",\"description\":\"\",\"placeholder\":\"\u8bf7\u8f93\u5165\u503c...\",\"options\":[\"\u7acb\u65b9\u4f53\",\"\u67f1\u4f53\",\"\u7403\u4f53\",\"\u5176\u4ed6\"],\"options2\":{\"\u9009\u9879\u4e00\":[\"\u4e8c\u7ea7\u9009\u9879\u4e0011\",\"\u4e8c\u7ea7\u9009\u9879\u4e8c11\"],\"\u9009\u9879\u4e8c\":[\"\u4e8c\u7ea7\u9009\u9879\u4e0022\",\"\u4e8c\u7ea7\u9009\u9879\u4e8c22\"],\"null\":[],\"\u7acb\u65b9\u4f53\":[\"\u957f\",\"\u5bbd\",\"\u9ad8\"],\"\u67f1\u4f53\":[\"\u76f4\u5f84\",\"\u9ad8\u5ea6\"],\"\u7403\u4f53\":[\"\u534a\u5f84\"],\"\u5176\u4ed6\":[\"\u5176\u4ed6\"]},\"options3\":{\"\u4e8c\u7ea7\u9009\u9879\u4e0011\":[\"\u4e09\u7ea7\u5355\u4f4d\u4e00111\",\"\u4e09\u7ea7\u5355\u4f4d\u4e8c111\"],\"\u4e8c\u7ea7\u9009\u9879\u4e8c11\":[\"\u4e09\u7ea7\u5355\u4f4d\u4e00112\",\"\u4e09\u7ea7\u5355\u4f4d\u4e8c112\"],\"\u4e8c\u7ea7\u9009\u9879\u4e0022\":[\"\u4e09\u7ea7\u5355\u4f4d\u4e00221\",\"\u4e09\u7ea7\u5355\u4f4d\u4e8c221\"],\"\u4e8c\u7ea7\u9009\u9879\u4e8c22\":[\"\u4e09\u7ea7\u5355\u4f4d\u4e00222\",\"\u4e09\u7ea7\u5355\u4f4d\u4e8c222\"],\"undefined\":[],\"\u957f\":[\"nm/\u03bcm\"],\"\u5bbd\":[\"nm/\u03bcm\"],\"\u9ad8\":[\"nm/\u03bcm\"],\"null\":[],\"\u76f4\u5f84\":[\"nm/\u03bcm\"],\"\u9ad8\u5ea6\":[\"nm/\u03bcm\"],\"\u534a\u5f84\":[\"nm/\u03bcm\"],\"\u5176\u4ed6\":[\"\u65e0\"]},\"required\":false,\"validation\":\"/.*/\",\"$$hashKey\":\"object:305\"},{\"component\":\"thirdcascapeselect\",\"editable\":true,\"index\":8,\"label\":\"\u52a0\u8f7d\u65b9\u5f0f\",\"description\":\"\",\"placeholder\":\"\u8bf7\u8f93\u5165\u503c...\",\"options\":[\"\u529b\u63a7\u5236\",\"\u4f4d\u79fb\u63a7\u5236\"],\"options2\":{\"\u9009\u9879\u4e00\":[\"\u4e8c\u7ea7\u9009\u9879\u4e0011\",\"\u4e8c\u7ea7\u9009\u9879\u4e8c11\"],\"\u9009\u9879\u4e8c\":[\"\u4e8c\u7ea7\u9009\u9879\u4e0022\",\"\u4e8c\u7ea7\u9009\u9879\u4e8c22\"],\"null\":[],\"\u529b\u63a7\u5236\":[\"\u52a0\u8f7d\u901f\u7387\",\"\u6700\u5927\u8f7d\u8377\"],\"\u4f4d\u79fb\u63a7\u5236\":[\"\u52a0\u8f7d\u901f\u7387\",\"\u6700\u5927\u8f7d\u8377\"]},\"options3\":{\"\u4e8c\u7ea7\u9009\u9879\u4e0011\":[\"\u4e09\u7ea7\u5355\u4f4d\u4e00111\",\"\u4e09\u7ea7\u5355\u4f4d\u4e8c111\"],\"\u4e8c\u7ea7\u9009\u9879\u4e8c11\":[\"\u4e09\u7ea7\u5355\u4f4d\u4e00112\",\"\u4e09\u7ea7\u5355\u4f4d\u4e8c112\"],\"\u4e8c\u7ea7\u9009\u9879\u4e0022\":[\"\u4e09\u7ea7\u5355\u4f4d\u4e00221\",\"\u4e09\u7ea7\u5355\u4f4d\u4e8c221\"],\"\u4e8c\u7ea7\u9009\u9879\u4e8c22\":[\"\u4e09\u7ea7\u5355\u4f4d\u4e00222\",\"\u4e09\u7ea7\u5355\u4f4d\u4e8c222\"],\"undefined\":[],\"\u52a0\u8f7d\u901f\u7387\":[\"nN\"],\"\u6700\u5927\u8f7d\u8377\":[\"nN\"]},\"required\":false,\"validation\":\"/.*/\",\"$$hashKey\":\"object:343\"}]\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8080/matdata/v1/instrument",
+                            "protocol": "http",
+                            "host": [
+                                "localhost:8080"
+                            ],
+                            "path": [
+                                "matdata",
+                                "v1",
+                                "instrument"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "event": []
         }
-    ]
+    ],
+    "event": []
 }
