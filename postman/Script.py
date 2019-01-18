@@ -89,7 +89,14 @@ class PreScript:
                 my_save += "var update_json=JSON.parse(pm.globals.get(\"{}\"));\r".format(key)
                 update_info = update[key]
                 for a, b in zip(update_info.keys(), update_info.values()):
-                    my_save += "update_json.{}={};\r".format(a, b if not isinstance(b, str) else "\"" + b + "\"")
+                    temp = "update_json.{}={};\r".format(a, b if not isinstance(b, str) else "\"" + b + "\"")
+                    var = re.findall("{{.*?}}", temp)
+                    if len(var) == 1:
+                        my_save += "var temp=pm.globals.get(\"{}\");\r".format(
+                            var[0].replace("{", "").replace("}", ""))
+                        temp = "update_json.{}=temp;\r".format(a)
+                        # print(temp)
+                    my_save += temp
                 my_save += "pm.globals.set(\"{}\", {});\r".format(key, "JSON.stringify(update_json)")
         headers = "\"\""
         data = "\"\""
