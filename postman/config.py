@@ -145,9 +145,11 @@ get_user = [
                 "header": {"Content-Type": "application/json"},
                 "body": {},
                 "save": {
-                    "data.username": "user",
-                    "data.usertoken": "token",
-                    "data.objectId": "user_objectId"
+                    "no_json": {
+                        "data.username": "user",
+                        "data.usertoken": "token",
+                        "data.objectId": "user_objectId"
+                    }
                 }
             }
         ],
@@ -272,7 +274,9 @@ new_instrument = [
             ]
         },
         "save": {
-            "data.objectId": "instrument_objectId"
+            "no_json": {
+                "data.objectId": "instrument_objectId"
+            }
         }
     },
     {
@@ -420,7 +424,9 @@ new_laboratory = [
             ]
         },
         "save": {
-            "data.objectId": "laboratory_objectId"
+            "no_json": {
+                "data.objectId": "laboratory_objectId"
+            }
         }
     },
     {
@@ -573,11 +579,13 @@ update_instrument = [
         "pre_send": [
             {
                 "method": "GET",
-                "url": base_url + "/instrument/\"+pm.environment.get(\"instrument_objectId\")+\"",
+                "url": base_url + "/instrument/{{instrument_objectId}}",
                 "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
                 "body": {},
                 "save": {
-                    "data": "update_instrument"
+                    "json": {
+                        "data": "update_instrument"
+                    }
                 },
                 "update": {
                     "update_instrument": {
@@ -628,12 +636,13 @@ update_laboratory = [
         "pre_send": [
             {
                 "method": "GET",
-                "url": base_url + "/laboratory/\"+pm.environment.get(\"laboratory_objectId\")+\"",
-                "header": {"Content-Type": "application/json", "username": "pm.environment.get(\"user\")",
-                           "usertoken": "pm.environment.get(\"token\")"},
+                "url": base_url + "/laboratory/{{laboratory_objectId}}",
+                "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
                 "body": {},
                 "save": {
-                    "data": "update_laboratory"
+                    "json": {
+                        "data": "update_laboratory"
+                    }
                 },
                 "update": {
                     "update_instrument": {
@@ -680,7 +689,7 @@ update_laboratory = [
 ]
 
 new_project = [
-{
+    {
         "name": "正常",
         "method": "POST",
         "url": base_url + "/project",
@@ -719,7 +728,9 @@ new_project = [
             ]
         },
         "save": {
-            "data.objectId": "laboratory_objectId"
+            "no_json": {
+                "data.objectId": "laboratory_objectId"
+            }
         }
     },
 ]
@@ -752,5 +763,13 @@ folders = [
     {
         "name": "更新设备",
         "request": update_instrument
+    },
+    {
+        "name": "更新实验室",
+        "request": update_laboratory
+    },
+    {
+        "name": "新建项目",
+        "request": new_project
     }
 ]

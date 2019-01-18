@@ -1,5 +1,6 @@
 # coding = utf-8
 import genson
+import re
 
 
 class PreScript:
@@ -7,31 +8,49 @@ class PreScript:
     def __init__(self):
         self._script = ""
 
-    def set_global_environment(self, key, value):
-        self._script += "pm.globals.set(\"{}\", \"{}\");\r".format(str(key), str(value) if "{" not in str(
+    def set_globals_environment(self, key, value):
+        self._script += "pm.globals.set(\"{}\", {});\r".format(str(key), "\"" + str(value) + "\"" if "{" not in str(
             value) else "JSON.stringify(%s)" % value)
 
     def set_environment(self, key, value):
-        self._script += "pm.environment.set(\"{}\", \"{}\");\r".format(str(key), str(value) if "{" not in str(
+        self._script += "pm.environment.set(\"{}\", {});\r".format(str(key), "\"" + str(value) + "\"" if "{" not in str(
             value) else "JSON.stringify(%s)" % value)
 
-    def get_global_variable(self, var_name, var_key):
+    def get_globals_variable(self, var_name, var_key, is_json="no_json"):
         self._script += "var {}=pm.globals.get(\"{}\");\r".format(var_name, var_key)
+        if is_json == "json":
+            self._script += "%s=JSON.parse(%s);\r" % (var_name, var_name)
 
-    def get_environment_variable(self, var_name, var_key):
+    def get_environment_variable(self, var_name, var_key, is_json="no_json"):
         self._script += "var {}=pm.environment.get(\"{}\");\r".format(var_name, var_key)
+        if is_json == "json":
+            self._script += "%s=JSON.parse(%s);\r" % (var_name, var_name)
 
-    def clear_global_variable(self, key):
+    def clear_globals_variable(self, key):
         self._script += "pm.globals.unset(\"{}\");\r".format(key)
 
     def clear_environment_variable(self, key):
         self._script += "pm.environment.unset(\"{}\");\r".format(key)
 
-    def send_request(self, url, method, header, body, res_save, keys):
+    def send_request(self, url, method, header, body, save):
+        my_url = "\"" + url + "\""
+        var = re.findall("{{.*?}}", url)
+        s = re.split("{{.*?}}", url)
+        if len(var) != 0:
+            i = 0
+            my_url = ""
+            for item in var:
+                item = item.replace("{", "").replace("}", "")
+                self.get_globals_variable(item, item)
+                if i != 0:
+                    my_url = my_url + "+"
+                my_url = my_url + "\"" + s[i] + "\"" + "+%s" % item
+                i += 1
+            # print(my_url)
         string = """
         // Example with a full fledged SDK Request
         const my_request = {
-          url: "%s",
+          url: %s,
           method: "%s",
           header: %s,
           body: {
@@ -48,29 +67,52 @@ class PreScript:
         });
         
         """
-        save = ""
-        for a, b in zip(res_save, keys):
-            if b is not None:
-                temp = '.' + b
-            else:
-                temp = b
-            save += ("          pm.environment.set('%s',res.json()%s);\r" % (a, temp))
+        my_save = ""
+        if save is not None:
+            if "json" in save.keys():
+                for a, b in zip(save["json"].keys(), save["json"].values()):
+                    if a is not None:
+                        temp = '.' + a
+                    else:
+                        temp = a
+                    my_save += ("          pm.globals.set('%s',%s);\r" % (
+                        b, "JSON.stringify(res.json()" + temp + ")"))
+            if "no_json" in save.keys():
+                for a, b in zip(save["no_json"].keys(), save["no_json"].values()):
+                    if a is not None:
+                        temp = '.' + a
+                    else:
+                        temp = a
+                    my_save += ("          pm.globals.set('%s',%s);\r" % (b, "res.json()" + temp))
         headers = "\"\""
         data = "\"\""
         if header != {}:
-            headers = header
+            headers = str(header).replace("'", "\"")
+            var = re.findall("{{.*?}}", str(header))
+            if len(var) != 0:
+                for item in var:
+                    temp = item.replace("{", "").replace("}", "")
+                    self.get_globals_variable(temp, temp)
+                    headers = headers.replace("\"" + item + "\"", temp)
         if body != {}:
-            data = body
-        self._script += (string % (url, method, headers, data, save))
+            data = str(body).replace("'", "\"")
+            var = re.findall("{{.*?}}", str(body))
+            if len(var) != 0:
+                for item in var:
+                    temp = item.replace("{", "").replace("}", "")
+                    self.get_globals_variable(temp, temp)
+                    data = data.replace("\"" + item + "\"", temp)
+        # print(my_save)
+        self._script += (string % (my_url, method, headers, data, my_save))
 
     def set_origin_js(self, code):
         self._script += code + "\r"
 
     def update_json_variable(self, key, update_info):
-        string = "var update_json=JSON.parse(pm.environment.get(\"{}\"));\r".format("update_json", key)
+        string = "var update_json=JSON.parse(pm.globals.get(\"{}\"));\r".format("update_json", key)
         for a, b in zip(update_info.keys(), update_info.values()):
             string += "update_json.{}={};\r".format(a, b if not isinstance(b, str) else "\"" + b + "\"")
-        string += "pm.environment.set(\"{}\", \"{}\");\r".format(key, "JSON.stringify(update_json)")
+        string += "pm.globals.set(\"{}\", {});\r".format(key, "JSON.stringify(update_json)")
         self._script += string
 
     def get_script(self):
@@ -142,7 +184,7 @@ class TestScript(PreScript):
 
         """
         temp = "pm.globals.get(\"%s\")"
-        if var_type == "global":
+        if var_type == "globals":
             temp = "pm.globals.get(\"%s\")"
         if var_type == "env":
             temp = "pm.environment.get(\"%s\")"
@@ -169,7 +211,7 @@ class TestScript(PreScript):
 
         """
         temp = "pm.globals.get(\"%s\")"
-        if var_type == "global":
+        if var_type == "globals":
             temp = "pm.globals.get(\"%s\")"
         if var_type == "env":
             temp = "pm.environment.get(\"%s\")"
@@ -178,15 +220,17 @@ class TestScript(PreScript):
         temp = temp % key
         self._script += (string % temp)
 
-    def save_response(self, save_key, specific_keys=None):
+    def save_response(self, save_key, specific_keys=None, is_json="no_json"):
         if specific_keys is None:
             key = ""
         else:
             key = '.' + ('.'.join(specific_keys))
         string = """
-        pm.environment.set("%s", pm.response.json()%s);
+        pm.globals.set("%s", %s);
         """
-        self._script += (string % (save_key, key))
+        self._script += (string % (
+            save_key,
+            "pm.response.json()" + key if is_json == "no_json" else "JSON.stringify(pm.response.json()" + key + ")"))
 
     def get_script(self):
         return self._script.replace("True", "true").replace("False", "false")

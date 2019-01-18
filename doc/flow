@@ -34,7 +34,12 @@ pre_send:[
         header:
         body:
         save:{
-            a.b.c:"key",
+            json:{
+                a.b.c:"key",
+            }
+            no_json:{
+                a.b.c:"key",
+            }
         }
 	}
 ]
@@ -55,7 +60,12 @@ test:
 		"b"
 	]
 save:{
-    a.b.c:"key",
+    json:{
+        a.b.c:"key",
+    }
+    no_json:{
+        a.b.c:"key",
+    }
 }
 
 

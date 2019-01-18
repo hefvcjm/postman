@@ -23,11 +23,8 @@ class Use:
             return
         pre_send = self.__setting["pre_send"]
         for item in pre_send:
-            if "save" in item.keys():
-                save = item["save"]
-            else:
-                save = None
-            self.__pre_script.send_request(item["url"], item["method"], item["header"], item["body"], save)
+            self.__pre_script.send_request(item["url"], item["method"], item["header"], item["body"],
+                                           list(item["save"].values()), list(item["save"].keys()))
             if "update" not in item.keys():
                 continue
             for key, value in zip(item["update"].keys(), item["update"].values()):
@@ -44,28 +41,23 @@ class Use:
         self.__test.test_response_schema(test["json_schema"])
         for item in test["attr"].keys():
             if isinstance(test["attr"][item], str) and re.match("{{.*}}", test["attr"][item].strip()):
-                self.__test.test_response_json_has_variable(item.split("."), "globals",
+                self.__test.test_response_json_has_variable(item.split("."), "env",
                                                             test["attr"][item].replace("{", "").replace("}", ""))
             else:
                 self.__test.test_response_json_has(item.split("."), test["attr"][item])
         if "has" in test.keys():
             for item in test["has"]:
                 if re.match("{{.*}}", item.strip()):
-                    self.__test.test_has_variable("globals", item.strip().replace("{", "").replace("}", ""))
+                    self.__test.test_has_variable("env", item.strip().replace("{", "").replace("}", ""))
                 else:
                     self.__test.test_has_string(item)
 
     def __save(self):
         if "save" not in self.__setting.keys():
             return
-        # print(self.__setting["save"])
         save = self.__setting["save"]
-        if "json" in save.keys():
-            for a, b in zip(save["json"].keys(), save["json"].values()):
-                self.__test.save_response(b, a.split("."), "json")
-        if "no_json" in save.keys():
-            for a, b in zip(save["no_json"].keys(), save["no_json"].values()):
-                self.__test.save_response(b, a.split("."))
+        for a, b in zip(save.keys(), save.values()):
+            self.__test.save_response(b, a.split("."))
 
     def __update(self):
         if "update" not in self.__setting.keys():

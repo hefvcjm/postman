@@ -1,0 +1,53 @@
+{
+    "pre_send": [
+        {
+            "method": "GET",
+            "url": base_url + "/user/login?username=administrator&password=xA123456",
+            "header": {"Content-Type": "application/json"},
+            "body": {},
+            "save": {
+                "no_json": {
+                    "data.username": "user",
+                    "data.usertoken": "token",
+                    "data.objectId": "user_objectId"
+                },
+                "json": {
+                    "data.objectId": "laboratory_objectId"
+                }
+            },
+            "update": {
+                "update_instrument": {
+                    "name": "update instrument",
+                    "foldername": "update instrument",
+                }
+            }
+        }
+    ],
+    "name": "获取当前用户",
+    "method": "GET",
+    "url": base_url + "/user/{{user_objectId}}",
+    "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+    "body": {},
+    "test": {
+        "status_code": 200,
+        "json_schema": {"data": {}, "message": "", "code": 0, "success": False},
+        "attr": {
+            "code": 0,
+            "success": True,
+            "message": "查询成功",
+            "data.objectId": "{{user_objectId}}"
+        },
+        "has": [
+            "administrator",
+            "{{user_objectId}}"
+        ]
+    },
+    "save": {
+        "no_json": {
+            "data.objectId": "laboratory_objectId"
+        },
+        "json": {
+            "data.objectId": "laboratory_objectId"
+        }
+    }
+},
