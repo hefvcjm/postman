@@ -1,5 +1,6 @@
 # coding = utf-8
 from . import *
+import re
 
 
 class Use:
@@ -13,6 +14,8 @@ class Use:
         self.__pre_send()
         self.__set_request()
         self.__set_test()
+        self.__save()
+        self.__update()
         self.__build()
 
     def __pre_send(self):
@@ -22,6 +25,10 @@ class Use:
         for item in pre_send:
             self.__pre_script.send_request(item["url"], item["method"], item["header"], item["body"],
                                            list(item["save"].values()), list(item["save"].keys()))
+            if "update" not in item.keys():
+                continue
+            for key, value in zip(item["update"].keys(), item["update"].values()):
+                self.__pre_script.update_json_variable(key, value)
 
     def __set_request(self):
         self.__request.set_request(self.__setting["method"], self.__setting["url"], self.__setting["header"],
@@ -33,10 +40,30 @@ class Use:
         self.__test.test_response_json()
         self.__test.test_response_schema(test["json_schema"])
         for item in test["attr"].keys():
-            self.__test.test_response_json_has(item.split("."), test["attr"][item])
+            if isinstance(test["attr"][item], str) and re.match("{{.*}}", test["attr"][item].strip()):
+                self.__test.test_response_json_has_variable(item.split("."), "env",
+                                                            test["attr"][item].replace("{", "").replace("}", ""))
+            else:
+                self.__test.test_response_json_has(item.split("."), test["attr"][item])
         if "has" in test.keys():
             for item in test["has"]:
-                self.__test.test_has_string(item)
+                if re.match("{{.*}}", item.strip()):
+                    self.__test.test_has_variable("env", item.strip().replace("{", "").replace("}", ""))
+                else:
+                    self.__test.test_has_string(item)
+
+    def __save(self):
+        if "save" not in self.__setting.keys():
+            return
+        save = self.__setting["save"]
+        for a, b in zip(save.keys(), save.values()):
+            self.__test.save_response(b, a.split("."))
+
+    def __update(self):
+        if "update" not in self.__setting.keys():
+            return
+        for key, value in zip(self.__setting["update"].keys(), self.__setting["update"].values()):
+            self.__test.update_json_variable(key, value)
 
     def __build(self):
         self.__request.set_pre_script(self.__pre_script)

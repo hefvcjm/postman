@@ -43,7 +43,7 @@ class Request(Base):
             for i in paths[1:]:
                 self._request["url"]["path"].append(i)
         self._request["body"]["raw"] = json.dumps(data, ensure_ascii=False) \
-            .replace("True", "true").replace("False", "false")
+            .replace("True", "true").replace("False", "false") if isinstance(data, dict) else data
         if parsed_uri.query != "":
             query = parsed_uri.query.split("&")
             if len(query) != 0:

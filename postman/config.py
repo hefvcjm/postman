@@ -162,10 +162,12 @@ get_user = [
             "attr": {
                 "code": 0,
                 "success": True,
-                "message": "查询成功"
+                "message": "查询成功",
+                "data.objectId": "{{user_objectId}}"
             },
             "has": [
-                "administrator"
+                "administrator",
+                "{{user_objectId}}"
             ]
         }
     },
@@ -268,8 +270,458 @@ new_instrument = [
                 "test instrument",
                 "component"
             ]
+        },
+        "save": {
+            "data.objectId": "instrument_objectId"
+        }
+    },
+    {
+        "name": "正常-不带formconfig",
+        "method": "POST",
+        "url": base_url + "/instrument",
+        "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+        "body": {
+            "name": "test instrument",
+            "foldername": "test instrument",
+        },
+        "test": {
+            "status_code": 200,
+            "json_schema": {
+                "data": {
+                    "objectId": "",
+                    "locktime": 0,
+                    "createDate": "",
+                    "updateDate": "",
+                    "createUser": "",
+                    "updateUser": "",
+                    "name": "",
+                    "isassign": False,
+                    "foldername": "",
+                    "formconfig": ""
+                },
+                "message": "",
+                "success": True,
+                "code": 0
+            },
+            "attr": {
+                "code": 0,
+                "success": True,
+                "message": "执行成功"
+            },
+            "has": [
+                "test instrument",
+            ]
+        }
+    },
+]
+
+get_instrument = [
+    {
+        "name": "获取指定设备",
+        "method": "GET",
+        "url": base_url + "/instrument/{{instrument_objectId}}",
+        "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+        "body": {},
+        "test": {
+            "status_code": 200,
+            "json_schema": {
+                "data": {
+                    "objectId": "",
+                    "locktime": 0,
+                    "createDate": "",
+                    "updateDate": "",
+                    "createUser": "",
+                    "updateUser": "",
+                    "name": "",
+                    "isassign": False,
+                    "foldername": "",
+                    "formconfig": ""
+                },
+                "message": "",
+                "success": True,
+                "code": 0
+            },
+            "attr": {
+                "code": 0,
+                "success": True,
+                "message": "查询成功"
+            },
+            "has": [
+                "test instrument",
+            ]
+        }
+    },
+    {
+        "name": "获取所有设备",
+        "method": "GET",
+        "url": base_url + "/instrument",
+        "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+        "body": {},
+        "test": {
+            "status_code": 200,
+            "json_schema": {
+                "data": {
+                    "count": 0,
+                    "results": []
+                },
+                "message": "",
+                "success": True,
+                "code": 0
+            },
+            "attr": {
+                "code": 0,
+                "success": True,
+                "message": "查询成功"
+            },
+            "has": [
+                "test instrument",
+            ]
         }
     }
+]
+
+new_laboratory = [
+    {
+        "name": "正常",
+        "method": "POST",
+        "url": base_url + "/laboratory",
+        "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+        "body": {
+            "name": "test laboratory",
+            "foldername": "test laboratory",
+            "instruments": ["{{instrument_objectId}}"]
+        },
+        "test": {
+            "status_code": 200,
+            "json_schema": {
+                "data": {
+                    "objectId": "",
+                    "locktime": 0,
+                    "createDate": "",
+                    "updateDate": "",
+                    "createUser": "",
+                    "updateUser": "",
+                    "name": "",
+                    "foldername": "",
+                    "children": [],
+                    "instruments": []
+                },
+                "message": "",
+                "success": True,
+                "code": 0
+            },
+            "attr": {
+                "code": 0,
+                "success": True,
+                "message": "执行成功"
+            },
+            "has": [
+                "test laboratory",
+            ]
+        },
+        "save": {
+            "data.objectId": "laboratory_objectId"
+        }
+    },
+    {
+        "name": "空设备列表",
+        "method": "POST",
+        "url": base_url + "/laboratory",
+        "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+        "body": {
+            "name": "test laboratory",
+            "foldername": "test laboratory",
+            "instruments": []
+        },
+        "test": {
+            "status_code": 200,
+            "json_schema": {
+                "data": {
+                    "objectId": "",
+                    "locktime": 0,
+                    "createDate": "",
+                    "updateDate": "",
+                    "createUser": "",
+                    "updateUser": "",
+                    "name": "",
+                    "foldername": "",
+                    "children": [],
+                    "instruments": []
+                },
+                "message": "",
+                "success": True,
+                "code": 0
+            },
+            "attr": {
+                "code": 0,
+                "success": True,
+                "message": "执行成功"
+            },
+            "has": [
+                "test laboratory",
+            ]
+        },
+    },
+    {
+        "name": "设备不存在",
+        "method": "POST",
+        "url": base_url + "/laboratory",
+        "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+        "body": {
+            "name": "test laboratory",
+            "foldername": "test laboratory",
+            "instruments": ["5c40b30a45581e2dce854e22d"]
+        },
+        "test": {
+            "status_code": 200,
+            "json_schema": {
+                "data": {
+                    "objectId": "",
+                    "locktime": 0,
+                    "createDate": "",
+                    "updateDate": "",
+                    "createUser": "",
+                    "updateUser": "",
+                    "name": "",
+                    "foldername": "",
+                    "children": [],
+                    "instruments": []
+                },
+                "message": "",
+                "success": True,
+                "code": 0
+            },
+            "attr": {
+                "code": 0,
+                "success": True,
+                "message": "执行成功"
+            },
+            "has": [
+                "test laboratory",
+            ]
+        },
+    },
+]
+
+get_laboratory = [
+    {
+        "name": "获取指定实验室",
+        "method": "GET",
+        "url": base_url + "/laboratory/{{laboratory_objectId}}",
+        "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+        "body": {},
+        "test": {
+            "status_code": 200,
+            "json_schema": {
+                "data": {
+                    "objectId": "",
+                    "locktime": 0,
+                    "createDate": "",
+                    "updateDate": "",
+                    "createUser": "",
+                    "updateUser": "",
+                    "name": "",
+                    "foldername": "",
+                    "children": [],
+                    "instruments": []
+                },
+                "message": "",
+                "success": True,
+                "code": 0
+            },
+            "attr": {
+                "code": 0,
+                "success": True,
+                "message": "查询成功"
+            },
+            "has": [
+                "test laboratory",
+            ]
+        }
+    },
+    {
+        "name": "获取所有实验室",
+        "method": "GET",
+        "url": base_url + "/laboratory",
+        "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+        "body": {},
+        "test": {
+            "status_code": 200,
+            "json_schema": {
+                "data": {
+                    "count": 0,
+                    "results": []
+                },
+                "message": "",
+                "success": True,
+                "code": 0
+            },
+            "attr": {
+                "code": 0,
+                "success": True,
+                "message": "查询成功"
+            },
+            "has": [
+                "test laboratory",
+            ]
+        }
+    }
+]
+
+update_instrument = [
+    {
+        "pre_send": [
+            {
+                "method": "GET",
+                "url": base_url + "/instrument/\"+pm.environment.get(\"instrument_objectId\")+\"",
+                "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+                "body": {},
+                "save": {
+                    "data": "update_instrument"
+                },
+                "update": {
+                    "update_instrument": {
+                        "name": "update instrument",
+                        "foldername": "update instrument",
+                    }
+                },
+            }
+        ],
+        "name": "更新指定设备",
+        "method": "PUT",
+        "url": base_url + "/instrument/{{instrument_objectId}}",
+        "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+        "body": "{{update_instrument}}",
+        "test": {
+            "status_code": 200,
+            "json_schema": {
+                "data": {
+                    "objectId": "",
+                    "locktime": 0,
+                    "createDate": "",
+                    "updateDate": "",
+                    "createUser": "",
+                    "updateUser": "",
+                    "name": "",
+                    "foldername": "",
+                    "children": [],
+                    "instruments": []
+                },
+                "message": "",
+                "success": True,
+                "code": 0
+            },
+            "attr": {
+                "code": 0,
+                "success": True,
+                "message": "查询成功"
+            },
+            "has": [
+                "update instrument",
+            ]
+        }
+    }
+]
+
+update_laboratory = [
+    {
+        "pre_send": [
+            {
+                "method": "GET",
+                "url": base_url + "/laboratory/\"+pm.environment.get(\"laboratory_objectId\")+\"",
+                "header": {"Content-Type": "application/json", "username": "pm.environment.get(\"user\")",
+                           "usertoken": "pm.environment.get(\"token\")"},
+                "body": {},
+                "save": {
+                    "data": "update_laboratory"
+                },
+                "update": {
+                    "update_instrument": {
+                        "name": "update laboratory",
+                        "foldername": "update laboratory",
+                    }
+                },
+            }
+        ],
+        "name": "更新指定实验室",
+        "method": "PUT",
+        "url": base_url + "/laboratory/{{laboratory_objectId}}",
+        "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+        "body": "{{update_laboratory}}",
+        "test": {
+            "status_code": 200,
+            "json_schema": {
+                "data": {
+                    "objectId": "",
+                    "locktime": 0,
+                    "createDate": "",
+                    "updateDate": "",
+                    "createUser": "",
+                    "updateUser": "",
+                    "name": "",
+                    "foldername": "",
+                    "children": [],
+                    "instruments": []
+                },
+                "message": "",
+                "success": True,
+                "code": 0
+            },
+            "attr": {
+                "code": 0,
+                "success": True,
+                "message": "修改成功"
+            },
+            "has": [
+                "update instrument",
+            ]
+        }
+    }
+]
+
+new_project = [
+{
+        "name": "正常",
+        "method": "POST",
+        "url": base_url + "/project",
+        "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
+        "body": {
+            "name": "test project",
+            "foldername": "test project",
+            "instruments": ["{{instrument_objectId}}"]
+        },
+        "test": {
+            "status_code": 200,
+            "json_schema": {
+                "data": {
+                    "objectId": "",
+                    "locktime": 0,
+                    "createDate": "",
+                    "updateDate": "",
+                    "createUser": "",
+                    "updateUser": "",
+                    "name": "",
+                    "foldername": "",
+                    "children": [],
+                    "instruments": []
+                },
+                "message": "",
+                "success": True,
+                "code": 0
+            },
+            "attr": {
+                "code": 0,
+                "success": True,
+                "message": "执行成功"
+            },
+            "has": [
+                "test laboratory",
+            ]
+        },
+        "save": {
+            "data.objectId": "laboratory_objectId"
+        }
+    },
 ]
 
 folders = [
@@ -284,5 +736,21 @@ folders = [
     {
         "name": "新建设备",
         "request": new_instrument
+    },
+    {
+        "name": "获取设备",
+        "request": get_instrument
+    },
+    {
+        "name": "新增实验室",
+        "request": new_laboratory
+    },
+    {
+        "name": "获取实验室",
+        "request": get_laboratory
+    },
+    {
+        "name": "更新设备",
+        "request": update_instrument
     }
 ]

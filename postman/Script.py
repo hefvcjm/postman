@@ -8,10 +8,12 @@ class PreScript:
         self._script = ""
 
     def set_global_environment(self, key, value):
-        self._script += "pm.globals.set(\"{}\", \"{}\");\r".format(str(key), str(value))
+        self._script += "pm.globals.set(\"{}\", \"{}\");\r".format(str(key), str(value) if "{" not in str(
+            value) else "JSON.stringify(%s)" % value)
 
     def set_environment(self, key, value):
-        self._script += "pm.environment.set(\"{}\", \"{}\");\r".format(str(key), str(value))
+        self._script += "pm.environment.set(\"{}\", \"{}\");\r".format(str(key), str(value) if "{" not in str(
+            value) else "JSON.stringify(%s)" % value)
 
     def get_global_variable(self, var_name, var_key):
         self._script += "var {}=pm.globals.get(\"{}\");\r".format(var_name, var_key)
@@ -63,6 +65,13 @@ class PreScript:
 
     def set_origin_js(self, code):
         self._script += code + "\r"
+
+    def update_json_variable(self, key, update_info):
+        string = "var update_json=JSON.parse(pm.environment.get(\"{}\"));\r".format("update_json", key)
+        for a, b in zip(update_info.keys(), update_info.values()):
+            string += "update_json.{}={};\r".format(a, b if not isinstance(b, str) else "\"" + b + "\"")
+        string += "pm.environment.set(\"{}\", \"{}\");\r".format(key, "JSON.stringify(update_json)")
+        self._script += string
 
     def get_script(self):
         return self._script.replace("\n", "\r")
@@ -123,6 +132,25 @@ class TestScript(PreScript):
             temp = "\'" + str(temp) + "\'"
         self._script += (string % (key, temp, key, temp))
 
+    def test_response_json_has_variable(self, keys, var_type, key):
+        json_key = '.'.join(keys)
+        string = """
+        var var_test = %s;
+        pm.test("%s字段为"+"\\""+var_test+"\\"",function(){
+            pm.expect(pm.response.json().%s).to.eql(var_test);
+        });
+
+        """
+        temp = "pm.globals.get(\"%s\")"
+        if var_type == "global":
+            temp = "pm.globals.get(\"%s\")"
+        if var_type == "env":
+            temp = "pm.environment.get(\"%s\")"
+        if var_type == "var":
+            temp = "pm.variable.get(\"%s\")"
+        temp = temp % key
+        self._script += (string % (temp, json_key, json_key))
+
     def test_has_string(self, value):
         string = """
         pm.test("Body matches '%s'", function () {
@@ -131,6 +159,24 @@ class TestScript(PreScript):
         
         """
         self._script += (string % (value, value))
+
+    def test_has_variable(self, var_type, key):
+        string = """
+        var var_test = %s;
+        pm.test("Body matches "+"\\""+var_test+"\\"", function () {
+            pm.expect(pm.response.text()).to.include(var_test);
+        });
+
+        """
+        temp = "pm.globals.get(\"%s\")"
+        if var_type == "global":
+            temp = "pm.globals.get(\"%s\")"
+        if var_type == "env":
+            temp = "pm.environment.get(\"%s\")"
+        if var_type == "var":
+            temp = "pm.variable.get(\"%s\")"
+        temp = temp % key
+        self._script += (string % temp)
 
     def save_response(self, save_key, specific_keys=None):
         if specific_keys is None:
@@ -143,7 +189,7 @@ class TestScript(PreScript):
         self._script += (string % (save_key, key))
 
     def get_script(self):
-        return self._script
+        return self._script.replace("True", "true").replace("False", "false")
 
 
 if __name__ == '__main__':
