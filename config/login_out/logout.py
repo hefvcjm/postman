@@ -23,12 +23,16 @@ request = [
         ],
         "name": "正常注销",
         "method": "GET",
-        "url": base_url + "/user/logout",
+        "url": base_url + "/user/logout?username={{user}}",
         "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
-        "body": {"username": "{{user}}"},
+        "body": {},
         "test": {
             "status_code": 200,
-            "json_schema": {"data": {}, "message": "", "code": 0, "success": False},
+            "json_schema": {
+                "message": "",
+                "success": True,
+                "code": 0
+            },
             "attr": {
                 "code": 0,
                 "success": True,

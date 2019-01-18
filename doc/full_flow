@@ -20,7 +20,7 @@
                     "name": "update instrument",
                     "foldername": "update instrument",
                 }
-            }
+            },
         }
     ],
     "name": "获取当前用户",

@@ -109,7 +109,7 @@ class PreScript:
         self._script += code + "\r"
 
     def update_json_variable(self, key, update_info):
-        string = "var update_json=JSON.parse(pm.globals.get(\"{}\"));\r".format("update_json", key)
+        string = "var update_json=JSON.parse(pm.globals.get(\"{}\"));\r".format(key)
         for a, b in zip(update_info.keys(), update_info.values()):
             string += "update_json.{}={};\r".format(a, b if not isinstance(b, str) else "\"" + b + "\"")
         string += "pm.globals.set(\"{}\", {});\r".format(key, "JSON.stringify(update_json)")
