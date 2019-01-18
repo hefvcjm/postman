@@ -32,7 +32,7 @@ class PreScript:
     def clear_environment_variable(self, key):
         self._script += "pm.environment.unset(\"{}\");\r".format(key)
 
-    def send_request(self, url, method, header, body, save):
+    def send_request(self, url, method, header, body, save, update):
         my_url = "\"" + url + "\""
         var = re.findall("{{.*?}}", url)
         s = re.split("{{.*?}}", url)
@@ -49,7 +49,7 @@ class PreScript:
             # print(my_url)
         string = """
         // Example with a full fledged SDK Request
-        const my_request = {
+        var my_request = {
           url: %s,
           method: "%s",
           header: %s,
@@ -84,6 +84,13 @@ class PreScript:
                     else:
                         temp = a
                     my_save += ("          pm.globals.set('%s',%s);\r" % (b, "res.json()" + temp))
+        if update is not None:
+            for key in update.keys():
+                my_save += "var update_json=JSON.parse(pm.globals.get(\"{}\"));\r".format(key)
+                update_info = update[key]
+                for a, b in zip(update_info.keys(), update_info.values()):
+                    my_save += "update_json.{}={};\r".format(a, b if not isinstance(b, str) else "\"" + b + "\"")
+                my_save += "pm.globals.set(\"{}\", {});\r".format(key, "JSON.stringify(update_json)")
         headers = "\"\""
         data = "\"\""
         if header != {}:

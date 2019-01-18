@@ -11,7 +11,7 @@ from config.get import *
 test_list += [instrument, laboratory, project, experiment, sample]
 from config.update import *
 
-test_list += [experiment]
+test_list += [experiment, instrument]
 
 folders = []
 for item in test_list:

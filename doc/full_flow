@@ -15,6 +15,12 @@
                     "data.objectId": "laboratory_objectId"
                 }
             },
+            "res_update": {
+                "update_instrument": {
+                    "name": "update instrument",
+                    "foldername": "update instrument",
+                }
+            },
             "update": {
                 "update_instrument": {
                     "name": "update instrument",

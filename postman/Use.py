@@ -27,7 +27,11 @@ class Use:
                 save = item["save"]
             else:
                 save = None
-            self.__pre_script.send_request(item["url"], item["method"], item["header"], item["body"], save)
+            if "res_update" in item.keys():
+                update = item["res_update"]
+            else:
+                update = None
+            self.__pre_script.send_request(item["url"], item["method"], item["header"], item["body"], save, update)
             if "update" not in item.keys():
                 continue
             for key, value in zip(item["update"].keys(), item["update"].values()):

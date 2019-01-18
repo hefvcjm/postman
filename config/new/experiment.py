@@ -13,7 +13,7 @@ request = [
             "foldername": "test experiment",
             "path": "test experiment",
             "project": {
-                "objectId": "{{new_project}}",
+                "objectId": "{{new_project}}"
             },
             "instrument": {
                 "objectId": "{{new_instrument}}"
