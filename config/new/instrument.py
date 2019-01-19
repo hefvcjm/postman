@@ -138,15 +138,26 @@ request = [
         "test": {
             "status_code": 200,
             "json_schema": {
-                "data": "",
-                "message": "新增失败",
-                "success": False,
-                "code": 2002
+                "data": {
+                    "objectId": "",
+                    "locktime": 0,
+                    "createDate": "",
+                    "updateDate": "",
+                    "createUser": "",
+                    "updateUser": "",
+                    "name": "",
+                    "isassign": False,
+                    "foldername": "",
+                    "formconfig": ""
+                },
+                "message": "执行成功",
+                "success": True,
+                "code": 0
             },
             "attr": {
-                "code": 2002,
-                "success": False,
-                "message": "新增失败"
+                "code": 0,
+                "success": True,
+                "message": "执行成功"
             },
         }
     },
@@ -162,15 +173,26 @@ request = [
         "test": {
             "status_code": 200,
             "json_schema": {
-                "data": "",
-                "message": "新增失败",
-                "success": False,
-                "code": 2002
+                "data": {
+                    "objectId": "",
+                    "locktime": 0,
+                    "createDate": "",
+                    "updateDate": "",
+                    "createUser": "",
+                    "updateUser": "",
+                    "name": "",
+                    "isassign": False,
+                    "foldername": "",
+                    "formconfig": ""
+                },
+                "message": "执行成功",
+                "success": True,
+                "code": 0
             },
             "attr": {
-                "code": 2002,
-                "success": False,
-                "message": "新增失败"
+                "code": 0,
+                "success": True,
+                "message": "执行成功"
             },
         }
     },
