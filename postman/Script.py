@@ -9,28 +9,30 @@ class PreScript:
         self._script = ""
 
     def set_globals_environment(self, key, value):
-        self._script += "pm.globals.set(\"{}\", {});\r".format(str(key), "\"" + str(value) + "\"" if "{" not in str(
-            value) else "JSON.stringify(%s)" % value)
+        self._script += "       pm.globals.set(\"{}\", {});\r".format(str(key),
+                                                                      "\"" + str(value) + "\"" if "{" not in str(
+                                                                          value) else "JSON.stringify(%s)" % value)
 
     def set_environment(self, key, value):
-        self._script += "pm.environment.set(\"{}\", {});\r".format(str(key), "\"" + str(value) + "\"" if "{" not in str(
-            value) else "JSON.stringify(%s)" % value)
+        self._script += "       pm.environment.set(\"{}\", {});\r".format(str(key),
+                                                                          "\"" + str(value) + "\"" if "{" not in str(
+                                                                              value) else "JSON.stringify(%s)" % value)
 
     def get_globals_variable(self, var_name, var_key, is_json="no_json"):
-        self._script += "var {}=pm.globals.get(\"{}\");\r".format(var_name, var_key)
+        self._script += "       var {}=pm.globals.get(\"{}\");\r".format(var_name, var_key)
         if is_json == "json":
-            self._script += "%s=JSON.parse(%s);\r" % (var_name, var_name)
+            self._script += "       %s=JSON.parse(%s);\r" % (var_name, var_name)
 
     def get_environment_variable(self, var_name, var_key, is_json="no_json"):
-        self._script += "var {}=pm.environment.get(\"{}\");\r".format(var_name, var_key)
+        self._script += "       var {}=pm.environment.get(\"{}\");\r".format(var_name, var_key)
         if is_json == "json":
-            self._script += "%s=JSON.parse(%s);\r" % (var_name, var_name)
+            self._script += "       %s=JSON.parse(%s);\r" % (var_name, var_name)
 
     def clear_globals_variable(self, key):
         self._script += "pm.globals.unset(\"{}\");\r".format(key)
 
     def clear_environment_variable(self, key):
-        self._script += "pm.environment.unset(\"{}\");\r".format(key)
+        self._script += "       pm.environment.unset(\"{}\");\r".format(key)
 
     def send_request(self, url, method, header, body, save, update):
         my_url = "\"" + url + "\""
@@ -75,7 +77,7 @@ class PreScript:
                         temp = '.' + a
                     else:
                         temp = a
-                    my_save += ("          pm.globals.set('%s',%s);\r" % (
+                    my_save += ("\r       pm.globals.set('%s',%s);\r" % (
                         b, "JSON.stringify(res.json()" + temp + ")"))
             if "no_json" in save.keys():
                 for a, b in zip(save["no_json"].keys(), save["no_json"].values()):
@@ -83,24 +85,25 @@ class PreScript:
                         temp = '.' + a
                     else:
                         temp = a
-                    my_save += ("          pm.globals.set('%s',%s);\r" % (b, "res.json()" + temp))
+                    my_save += ("       pm.globals.set('%s',%s);\r" % (b, "res.json()" + temp))
         if update is not None:
             for key in update.keys():
-                my_save += "var update_json=JSON.parse(pm.globals.get(\"{}\"));\r".format(key)
+                my_save += "        var update_json=JSON.parse(pm.globals.get(\"{}\"));\r".format(key)
                 update_info = update[key]
                 for a, b in zip(update_info.keys(), update_info.values()):
-                    temp = "update_json.{}={};\r".format(a, b if not isinstance(b, str) else "\"" + b + "\"").replace(
+                    temp = "        update_json.{}={};\r".format(a, b if not isinstance(b,
+                                                                                        str) else "\"" + b + "\"").replace(
                         "\'", "\"")
                     var = re.findall("{{.*?}}", temp)
                     if len(var) != 0:
                         i = 0
                         for variable in var:
-                            my_save += "var temp{}=pm.globals.get(\"{}\");\r".format(
+                            my_save += "        var temp{}=pm.globals.get(\"{}\");\r".format(
                                 str(i), variable.replace("{", "").replace("}", ""))
                             temp = temp.replace("\"" + variable + "\"", "temp{}".format(str(i)))
                             i += 1
                     my_save += temp
-                my_save += "pm.globals.set(\"{}\", {});\r".format(key, "JSON.stringify(update_json)")
+                my_save += "        pm.globals.set(\"{}\", {});\r".format(key, "JSON.stringify(update_json)")
         headers = "\"\""
         data = "\"\""
         if header != {}:
@@ -127,7 +130,7 @@ class PreScript:
                 for item in var:
                     temp = item.replace("{", "").replace("}", "")
                     self.get_globals_variable(temp, temp)
-                    data = data +  s[i] + "\"+" + temp + "+\""
+                    data = data + s[i] + "\"+" + temp + "+\""
                     i += 1
                 data = data + s[i]
                 # data = data[1:]
@@ -139,10 +142,10 @@ class PreScript:
         self._script += code + "\r"
 
     def update_json_variable(self, key, update_info):
-        string = "var update_json=JSON.parse(pm.globals.get(\"{}\"));\r".format(key)
+        string = "      var update_json=JSON.parse(pm.globals.get(\"{}\"));\r".format(key)
         for a, b in zip(update_info.keys(), update_info.values()):
-            string += "update_json.{}={};\r".format(a, b if not isinstance(b, str) else "\"" + b + "\"")
-        string += "pm.globals.set(\"{}\", {});\r".format(key, "JSON.stringify(update_json)")
+            string += "     update_json.{}={};\r".format(a, b if not isinstance(b, str) else "\"" + b + "\"")
+        string += "     pm.globals.set(\"{}\", {});\r".format(key, "JSON.stringify(update_json)")
         self._script += string
 
     def get_script(self):
