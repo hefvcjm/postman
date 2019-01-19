@@ -1,0 +1,73 @@
+{
+    # 在pre-script中发送的请求pm.sendRequest
+    "pre_send": [
+        {
+            "method": "GET", # 请求method
+            "url": base_url + "/user/login?username=administrator&password=xA123456", # 请求url
+            "header": {"Content-Type": "application/json"}, # 请求头
+            "body": {}, # 请求body
+            # 保存返回json, key为以点(.)分割的json树，value为保存后的变量名，，后面可用{{}}获取
+            "save": {
+                # 保存内容为非json
+                "no_json": {
+                    "data.username": "user",
+                    "data.usertoken": "token",
+                    "data.objectId": "user_objectId"
+                },
+                # 保存内容为json
+                "json": {
+                    "data.objectId": "laboratory_objectId"
+                }
+            },
+            # 在回调函数中更新内容, key为更新变量的名称，value为更新变量的内容，如果为json中的某个字段更新则说明相应的字段和更新后的内容
+            "res_update": {
+                "update_instrument": {
+                    "name": "update instrument",
+                    "foldername": "update instrument",
+                }
+            },
+            # 在请求外部更新，目前只实现为json的变量
+            "update": {
+                "update_instrument": {
+                    "name": "update instrument",
+                    "foldername": "update instrument",
+                }
+            },
+        }
+    ],
+    "name": "获取当前用户", # 测试名称
+    "method": "GET", # 请求method
+    "url": base_url + "/user/{{user_objectId}}", # 请求url
+    "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"}, # 请求头
+    "body": {}, # 请求body
+    # 测试内容
+    "test": {
+        # 状态码
+        "status_code": 200,
+        # 返回json模式，这里写返回的结果示例，后面自动生成json schema
+        "json_schema": {"data": {}, "message": "", "code": 0, "success": False},
+        # 返回json字段测试
+        "attr": {
+            "code": 0,
+            "success": True,
+            "message": "查询成功",
+            "data.objectId": "{{user_objectId}}"
+        },
+        # 测试返回是否包含有相应的字符串
+        "has": [
+            "administrator",
+            "{{user_objectId}}"
+        ]
+    },
+    # 保存返回结果
+    "save": {
+        # 保存非json，value为保存后的变量名
+        "no_json": {
+            "data.objectId": "laboratory_objectId"
+        },
+        # 保存json，value为保存后的变量名
+        "json": {
+            "data.objectId": "laboratory_objectId"
+        }
+    }
+},

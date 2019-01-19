@@ -88,21 +88,24 @@ class PreScript:
                     my_save += ("       pm.globals.set('%s',%s);\r" % (b, "res.json()" + temp))
         if update is not None:
             for key in update.keys():
-                my_save += "        var update_json=JSON.parse(pm.globals.get(\"{}\"));\r".format(key)
                 update_info = update[key]
-                for a, b in zip(update_info.keys(), update_info.values()):
-                    temp = "        update_json.{}={};\r".format(a, b if not isinstance(b,
-                                                                                        str) else "\"" + b + "\"").replace(
-                        "\'", "\"")
-                    var = re.findall("{{.*?}}", temp)
-                    if len(var) != 0:
-                        i = 0
-                        for variable in var:
-                            my_save += "        var temp{}=pm.globals.get(\"{}\");\r".format(
-                                str(i), variable.replace("{", "").replace("}", ""))
-                            temp = temp.replace("\"" + variable + "\"", "temp{}".format(str(i)))
-                            i += 1
-                    my_save += temp
+                if isinstance(update_info, dict):
+                    my_save += "        var update_json=JSON.parse(pm.globals.get(\"{}\"));\r".format(key)
+                    for a, b in zip(update_info.keys(), update_info.values()):
+                        temp = "        update_json.{}={};\r".format(a, b if not isinstance(b,
+                                                                                            str) else "\"" + b + "\"").replace(
+                            "\'", "\"")
+                        var = re.findall("{{.*?}}", temp)
+                        if len(var) != 0:
+                            i = 0
+                            for variable in var:
+                                my_save += "        var temp{}=pm.globals.get(\"{}\");\r".format(
+                                    str(i), variable.replace("{", "").replace("}", ""))
+                                temp = temp.replace("\"" + variable + "\"", "temp{}".format(str(i)))
+                                i += 1
+                        my_save += temp
+                else:
+                    my_save += "        pm.globals.set(\"{}\", {});\r".format(key, update_info)
                 my_save += "        pm.globals.set(\"{}\", {});\r".format(key, "JSON.stringify(update_json)")
         headers = "\"\""
         data = "\"\""
