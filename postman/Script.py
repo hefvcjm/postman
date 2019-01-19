@@ -104,9 +104,9 @@ class PreScript:
                                 temp = temp.replace("\"" + variable + "\"", "temp{}".format(str(i)))
                                 i += 1
                         my_save += temp
+                    my_save += "        pm.globals.set(\"{}\", {});\r".format(key, "JSON.stringify(update_json)")
                 else:
                     my_save += "        pm.globals.set(\"{}\", {});\r".format(key, update_info)
-                my_save += "        pm.globals.set(\"{}\", {});\r".format(key, "JSON.stringify(update_json)")
         headers = "\"\""
         data = "\"\""
         if header != {}:

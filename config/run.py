@@ -10,7 +10,7 @@ test_list = [logout, login]
 # 新建
 from config.new import *
 
-test_list += [instrument, laboratory, project, experiment, sample, formbuilder]
+test_list += [user, instrument, laboratory, project, experiment, sample, formbuilder]
 
 # 查询
 from config.get import *
