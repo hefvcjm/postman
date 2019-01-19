@@ -72,7 +72,7 @@ request = [
                 },
                 "res_update": {
                     "update_sample": {
-                        "parentId": "{{update_sample_sample}}",
+                        "experiment.objectId": "{{update_sample_sample}}",
                     }
                 }
             }
