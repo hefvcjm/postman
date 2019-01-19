@@ -132,13 +132,6 @@ request = [
                         "data.objectId": "update_sample_experiment"
                     }
                 },
-                "res_update": {
-                    "update_sample": {
-                        "experiment": {
-                            "objectId": "{{update_sample_experiment}}"
-                        },
-                    }
-                }
             }
         ],
         "name": "更新样品关联实验",
