@@ -154,7 +154,7 @@ request = [
                 "success": True,
                 "message": "执行成功",
                 "data.objectId": "{{new_sample}}",
-                "data.experiment.parentId": "{{update_sample_experiment}}"
+                "data.experiment.objectId": "{{update_sample_experiment}}"
             },
             "has": [
                 "update sample",

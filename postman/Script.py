@@ -89,13 +89,16 @@ class PreScript:
                 my_save += "var update_json=JSON.parse(pm.globals.get(\"{}\"));\r".format(key)
                 update_info = update[key]
                 for a, b in zip(update_info.keys(), update_info.values()):
-                    temp = "update_json.{}={};\r".format(a, b if not isinstance(b, str) else "\"" + b + "\"")
+                    temp = "update_json.{}={};\r".format(a, b if not isinstance(b, str) else "\"" + b + "\"").replace(
+                        "\'", "\"")
                     var = re.findall("{{.*?}}", temp)
-                    if len(var) == 1:
-                        my_save += "var temp=pm.globals.get(\"{}\");\r".format(
-                            var[0].replace("{", "").replace("}", ""))
-                        temp = "update_json.{}=temp;\r".format(a)
-                        # print(temp)
+                    if len(var) != 0:
+                        i = 0
+                        for variable in var:
+                            my_save += "var temp{}=pm.globals.get(\"{}\");\r".format(
+                                str(i), variable.replace("{", "").replace("}", ""))
+                            temp = temp.replace("\"" + variable + "\"", "temp{}".format(str(i)))
+                            i += 1
                     my_save += temp
                 my_save += "pm.globals.set(\"{}\", {});\r".format(key, "JSON.stringify(update_json)")
         headers = "\"\""
@@ -110,12 +113,25 @@ class PreScript:
                     headers = headers.replace("\"" + item + "\"", temp)
         if body != {}:
             data = str(body).replace("'", "\"")
+            # print("0: ", data)
+            if not re.match("^\".*?\"$", data):
+                data = "\"" + data.replace("\"", "\\\"") + "\""
             var = re.findall("{{.*?}}", str(body))
+            # print(var)
             if len(var) != 0:
+                s = re.split("{{.*?}}", data)
+                # print("1: ", data)
+                # print(s)
+                i = 0
+                data = ""
                 for item in var:
                     temp = item.replace("{", "").replace("}", "")
                     self.get_globals_variable(temp, temp)
-                    data = data.replace("\"" + item + "\"", temp)
+                    data = data +  s[i] + "\"+" + temp + "+\""
+                    i += 1
+                data = data + s[i]
+                # data = data[1:]
+                # print("3: ", data)
         # print(my_save)
         self._script += (string % (my_url, method, headers, data, my_save))
 

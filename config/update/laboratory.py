@@ -93,11 +93,6 @@ request = [
                         "data": "update_laboratory"
                     }
                 },
-                "res_update": {
-                    "update_laboratory": {
-                        "foldername": "update laboratory",
-                    }
-                }
             },
             {
                 "method": "POST",
@@ -122,7 +117,7 @@ request = [
                 }
             }
         ],
-        "name": "更新实验室文件夹名称",
+        "name": "更新实验室设备列表",
         "method": "PUT",
         "url": base_url + "/laboratory/{{new_laboratory}}",
         "header": {"Content-Type": "application/json", "username": "{{user}}", "usertoken": "{{token}}"},
