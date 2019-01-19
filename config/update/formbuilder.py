@@ -84,7 +84,7 @@ request = [
                 },
                 "res_update": {
                     "update_formbuilder": {
-                        "project.objectId": "{{update_formbuilder_instrument}}",
+                        "instrument.objectId": "{{update_formbuilder_instrument}}",
                     }
                 }
             }
