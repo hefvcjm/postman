@@ -111,7 +111,7 @@ request = [
             "attr": {
                 "code": 0,
                 "success": True,
-                "message": "查询成功",
+                "message": "执行成功",
                 "data.objectId": "{{new_experiment}}"
             },
             "has": [
@@ -170,7 +170,7 @@ request = [
             "attr": {
                 "code": 0,
                 "success": True,
-                "message": "查询成功",
+                "message": "执行成功",
                 "data.objectId": "{{new_experiment}}"
             },
             "has": [
@@ -228,7 +228,7 @@ request = [
             "attr": {
                 "code": 0,
                 "success": True,
-                "message": "查询成功",
+                "message": "执行成功",
                 "data.objectId": "{{new_experiment}}"
             },
             "has": [
