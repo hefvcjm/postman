@@ -1,5 +1,5 @@
 # coding = utf-8
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlencode
 from .Base import *
 import copy
 import json
@@ -27,7 +27,7 @@ class Request(Base):
         }
         self._response = []
 
-    def set_request(self, method, url, header, data):
+    def set_request(self, method, url, params, header, data):
         self._request["method"] = method
         for key in header.keys():
             self._request["header"].append(
@@ -44,8 +44,8 @@ class Request(Base):
                 self._request["url"]["path"].append(i)
         self._request["body"]["raw"] = json.dumps(data, ensure_ascii=False) \
             .replace("True", "true").replace("False", "false") if isinstance(data, dict) else data
-        if parsed_uri.query != "":
-            query = parsed_uri.query.split("&")
+        if parsed_uri.query != "" or urlencode(params) != "":
+            query = parsed_uri.query.split("&") + urlencode(params).split("&")
             if len(query) != 0:
                 for i in query:
                     temp = i.split("=")

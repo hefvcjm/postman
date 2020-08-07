@@ -7,6 +7,10 @@ class Use:
 
     def __init__(self, setting):
         self.__setting = setting
+        if "params" not in setting.keys():
+            self.__setting["params"] = {}
+        if "body" not in setting.keys():
+            self.__setting["body"] = {}
         self.__pre_script = Script.PreScript()
         self.__request = Request.Request(self.__setting["name"])
         self.__folder = None
@@ -38,8 +42,8 @@ class Use:
                 self.__pre_script.update_json_variable(key, value)
 
     def __set_request(self):
-        self.__request.set_request(self.__setting["method"], self.__setting["url"], self.__setting["header"],
-                                   self.__setting["body"])
+        self.__request.set_request(self.__setting["method"], self.__setting["url"], self.__setting["params"],
+                                   self.__setting["header"], self.__setting["body"])
 
     def __set_test(self):
         test = self.__setting["test"]

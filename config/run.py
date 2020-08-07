@@ -37,5 +37,5 @@ if __name__ == '__main__':
         for request in folder["request"]:
             f.add_request(Use(request).get())
         collection.add_item(f)
-    with open(r"C:\Users\win10\Desktop\MatdataAPI.postman_collection.json", "w") as file:
+    with open(r"C:\Users\10206\Desktop\MatdataAPI.postman_collection.json", "w") as file:
         file.write(json.dumps(collection.get_json(), indent=4))
