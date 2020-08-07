@@ -193,14 +193,22 @@ class TestScript(PreScript):
         });
         """ % (description, schema))
 
-    def test_response_json_has(self, keys, value):
+    def test_response_json_has(self, keys, value, mode='eql'):
         key = '.'.join(keys)
-        string = """
+        if mode == "eql":
+            string = """
         pm.test("%s字段为%s",function(){
             pm.expect(pm.response.json().%s).to.eql(%s);
         });
-        
-        """
+            
+            """
+        else:  # include
+            string = """
+        pm.test("%s字段包含%s",function(){
+            pm.expect(pm.response.json().%s).to.include(%s);
+        });
+
+            """
         temp = value
         if isinstance(value, int) or isinstance(value, float):
             temp = str(temp)
@@ -210,12 +218,21 @@ class TestScript(PreScript):
             temp = "\'" + str(temp) + "\'"
         self._script += (string % (key, temp, key, temp))
 
-    def test_response_json_has_variable(self, keys, var_type, key):
+    def test_response_json_has_variable(self, keys, var_type, key, mode="eql"):
         json_key = '.'.join(keys)
-        string = """
+        if mode == "eql":
+            string = """
         var var_test = %s;
         pm.test("%s字段为"+"\\""+var_test+"\\"",function(){
             pm.expect(pm.response.json().%s).to.eql(var_test);
+        });
+
+        """
+        else:  # include
+            string = """
+        var var_test = %s;
+        pm.test("%s字段包含"+"\\""+var_test+"\\"",function(){
+            pm.expect(pm.response.json().%s).to.include(var_test);
         });
 
         """

@@ -62,9 +62,19 @@ class Use:
                 for item in test["attr"].keys():
                     if isinstance(test["attr"][item], str) and re.match("{{.*}}", test["attr"][item].strip()):
                         self.__test.test_response_json_has_variable(item.split("."), "globals",
-                                                                    test["attr"][item].replace("{", "").replace("}", ""))
+                                                                    test["attr"][item].replace("{", "").replace("}",
+                                                                                                                ""))
                     else:
                         self.__test.test_response_json_has(item.split("."), test["attr"][item])
+            if "attr_has" in test.keys():
+                for item in test["attr_has"].keys():
+                    if isinstance(test["attr_has"][item], str) and re.match("{{.*}}", test["attr_has"][item].strip()):
+                        self.__test.test_response_json_has_variable(item.split("."), "globals",
+                                                                    test["attr_has"][item].replace("{", "").replace("}",
+                                                                                                                    ""),
+                                                                    mode="include")
+                    else:
+                        self.__test.test_response_json_has(item.split("."), test["attr_has"][item], mode="include")
             if "has" in test.keys():
                 for item in test["has"]:
                     if re.match("{{.*}}", item.strip()):

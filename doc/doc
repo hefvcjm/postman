@@ -50,13 +50,18 @@
         "status_code": 200,
         # 返回json模式，这里写返回的结果示例，后面自动生成json schema
         "json_schema": {"data": {}, "message": "", "code": 0, "success": False},
-        # 返回json字段测试
+        # 返回json字段测试，等于
         "attr": {
             "code": 0,
             "success": True,
             "message": "查询成功",
             "data.objectId": "{{user_objectId}}"
         },
+        # 返回json字段测试，包含
+        "attr_has": {
+            "message": "成功",
+            "data.objectId": "{{user_objectId}}"
+        }
         # 测试返回是否包含有相应的字符串
         "has": [
             "administrator",
