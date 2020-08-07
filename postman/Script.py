@@ -248,7 +248,7 @@ class TestScript(PreScript):
 
     def test_has_string(self, value):
         string = """
-        pm.test("Body matches '%s'", function () {
+        pm.test("Body 包含 '%s'", function () {
             pm.expect(pm.response.text()).to.include("%s");
         });
         
@@ -258,7 +258,7 @@ class TestScript(PreScript):
     def test_has_variable(self, var_type, key):
         string = """
         var var_test = %s;
-        pm.test("Body matches "+"\\""+var_test+"\\"", function () {
+        pm.test("Body 包含 "+"\\""+var_test+"\\"", function () {
             pm.expect(pm.response.text()).to.include(var_test);
         });
 
