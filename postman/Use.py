@@ -54,7 +54,7 @@ class Use:
             test = self.__setting["test"]
             if "status_code" in test.keys():
                 self.__test.test_status_code(str(test["status_code"]))
-            if "response_json" in test.keys():
+            if "response_json" in test.keys() and test["response_json"] is True:
                 self.__test.test_response_json()
             if "json_schema" in test.keys():
                 self.__test.test_response_schema(test["json_schema"])
