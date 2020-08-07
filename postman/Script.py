@@ -160,7 +160,7 @@ class TestScript(PreScript):
     def __init__(self):
         super().__init__()
 
-    def test_status_code(self, description="Status code is 200", code="200"):
+    def test_status_code(self, code="200"):
         description = "Status code is %s" % code
         string = """
         pm.test("%s", function () {
