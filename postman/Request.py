@@ -44,7 +44,7 @@ class Request(Base):
                 self._request["url"]["path"].append(i)
         self._request["body"]["raw"] = json.dumps(data, ensure_ascii=False) \
             .replace("True", "true").replace("False", "false") if isinstance(data, dict) else data
-        if parsed_uri.query != "" or urlencode(params) != "":
+        if parsed_uri.query != "":
             query = parsed_uri.query.split("&") + urlencode(params).split("&")
             if len(query) != 0:
                 for i in query:
@@ -52,6 +52,13 @@ class Request(Base):
                     if len(temp) != 0:
                         self._request["url"]["query"].append(
                             {"key": temp[0], "value": "" if len(temp) == 1 else temp[1]})
+        if len(params) != 0:
+            for k, v in params.items():
+                if isinstance(v, list):
+                    v = ",".join([json.dumps(i) for i in v])
+                self._request["url"]["query"].append(
+                    {"key": k if isinstance(k, str) else json.dumps(k),
+                     "value": v if isinstance(v, str) else json.dumps(v)})
 
     def get_json(self):
         self._json = {
