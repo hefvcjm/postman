@@ -50,22 +50,27 @@ class Use:
                                    self.__setting["header"], self.__setting["body"])
 
     def __set_test(self):
-        test = self.__setting["test"]
-        self.__test.test_status_code(str(test["status_code"]))
-        self.__test.test_response_json()
-        self.__test.test_response_schema(test["json_schema"])
-        for item in test["attr"].keys():
-            if isinstance(test["attr"][item], str) and re.match("{{.*}}", test["attr"][item].strip()):
-                self.__test.test_response_json_has_variable(item.split("."), "globals",
-                                                            test["attr"][item].replace("{", "").replace("}", ""))
-            else:
-                self.__test.test_response_json_has(item.split("."), test["attr"][item])
-        if "has" in test.keys():
-            for item in test["has"]:
-                if re.match("{{.*}}", item.strip()):
-                    self.__test.test_has_variable("globals", item.strip().replace("{", "").replace("}", ""))
-                else:
-                    self.__test.test_has_string(item)
+        if "test" in self.__setting.keys():
+            test = self.__setting["test"]
+            if "status_code" in test.keys():
+                self.__test.test_status_code(str(test["status_code"]))
+            if "response_json" in test.keys():
+                self.__test.test_response_json()
+            if "json_schema" in test.keys():
+                self.__test.test_response_schema(test["json_schema"])
+            if "attr" in test.keys():
+                for item in test["attr"].keys():
+                    if isinstance(test["attr"][item], str) and re.match("{{.*}}", test["attr"][item].strip()):
+                        self.__test.test_response_json_has_variable(item.split("."), "globals",
+                                                                    test["attr"][item].replace("{", "").replace("}", ""))
+                    else:
+                        self.__test.test_response_json_has(item.split("."), test["attr"][item])
+            if "has" in test.keys():
+                for item in test["has"]:
+                    if re.match("{{.*}}", item.strip()):
+                        self.__test.test_has_variable("globals", item.strip().replace("{", "").replace("}", ""))
+                    else:
+                        self.__test.test_has_string(item)
 
     def __save(self):
         if "save" not in self.__setting.keys():
@@ -98,7 +103,7 @@ class Use:
         return self.__request
 
 
-def dump_postman(folders, name, path=""):
+def dump_postman(folders, name="dump_postman", path=""):
     collection = Collection.Collection(name)
     for folder in folders:
         f = Folder.Folder(folder["name"])

@@ -44,6 +44,8 @@
     "body": {}, # 请求body
     # 测试内容
     "test": {
+        # 是否返回json
+        "response_json": True,
         # 状态码
         "status_code": 200,
         # 返回json模式，这里写返回的结果示例，后面自动生成json schema
