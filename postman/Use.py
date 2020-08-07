@@ -1,6 +1,8 @@
 # coding = utf-8
 from . import *
 import re
+import json
+import os
 
 
 class Use:
@@ -11,6 +13,8 @@ class Use:
             self.__setting["params"] = {}
         if "body" not in setting.keys():
             self.__setting["body"] = {}
+        if "header" not in setting.keys():
+            self.__setting["header"] = {}
         self.__pre_script = Script.PreScript()
         self.__request = Request.Request(self.__setting["name"])
         self.__folder = None
@@ -92,3 +96,14 @@ class Use:
         if self.__folder is not None:
             return self.__folder
         return self.__request
+
+
+def dump_postman(folders, name, path=""):
+    collection = Collection.Collection(name)
+    for folder in folders:
+        f = Folder.Folder(folder["name"])
+        for request in folder["request"]:
+            f.add_request(Use(request).get())
+        collection.add_item(f)
+    with open(os.path.join(path, name + ".json"), "w") as file:
+        file.write(json.dumps(collection.get_json(), indent=4))
