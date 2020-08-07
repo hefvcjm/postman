@@ -173,7 +173,6 @@ class TestScript(PreScript):
         string = """
         pm.test('返回json格式数据', () => {
             pm.response.to.be.json;
-            pm.response.to.have.header('Content-Type', 'application/json;charset=UTF-8');
         });  
         
         """
