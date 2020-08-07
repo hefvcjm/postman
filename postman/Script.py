@@ -274,7 +274,7 @@ class TestScript(PreScript):
         self._script += (string % temp)
 
     def save_response(self, save_key, specific_keys=None, is_json="no_json"):
-        if specific_keys is None or specific_keys[0] != "":
+        if specific_keys is None or specific_keys[0] == "":
             key = ""
         else:
             key = '.' + ('.'.join(specific_keys))
